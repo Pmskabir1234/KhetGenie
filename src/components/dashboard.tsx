@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Role } from "@/app/page";
+import { BuyerDashboard } from "@/components/buyer-dashboard";
 
 export function Dashboard({ role }: { role: Role }) {
   return (
@@ -45,82 +46,86 @@ export function Dashboard({ role }: { role: Role }) {
             </Badge>
         </div>
       </div>
-      <Tabs defaultValue="price-oracle" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
-          <TabsTrigger value="price-oracle" className="py-2">
-            <DollarSign className="mr-2" />
-            Price Oracle
-          </TabsTrigger>
-          <TabsTrigger value="quality-inspector" className="py-2">
-            <Camera className="mr-2" />
-            Quality Inspector
-          </TabsTrigger>
-          <TabsTrigger value="location-insights" className="py-2">
-            <MapPin className="mr-2" />
-            Location Insights
-          </TabsTrigger>
-          <TabsTrigger value="terms-summarizer" className="py-2">
-            <MessagesSquare className="mr-2" />
-            Terms Summarizer
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="price-oracle">
-          <Card>
-            <CardHeader>
-              <CardTitle>AI Price Oracle</CardTitle>
-              <CardDescription>
-                Get AI-driven price recommendations for your crops based on
-                market data.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <PriceOracle />
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="quality-inspector">
-          <Card>
-            <CardHeader>
-              <CardTitle>AI Quality Inspector</CardTitle>
-              <CardDescription>
-                Analyze crop quality by uploading an image. Get a grade, issue
-                report, and summary.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <QualityInspector />
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="location-insights">
-          <Card>
-            <CardHeader>
-              <CardTitle>Location & Air Quality Insights</CardTitle>
-              <CardDescription>
-                Enter a city to get its coordinates and current air quality
-                data.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <LocationInsights />
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="terms-summarizer">
-          <Card>
-            <CardHeader>
-              <CardTitle>AI Terms Summarizer</CardTitle>
-              <CardDescription>
-                Paste a negotiation conversation to get a summary of the terms
-                and potential issues.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <TermsSummarizer />
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+      {role === "farmer" ? (
+        <Tabs defaultValue="price-oracle" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
+            <TabsTrigger value="price-oracle" className="py-2">
+              <DollarSign className="mr-2" />
+              Price Oracle
+            </TabsTrigger>
+            <TabsTrigger value="quality-inspector" className="py-2">
+              <Camera className="mr-2" />
+              Quality Inspector
+            </TabsTrigger>
+            <TabsTrigger value="location-insights" className="py-2">
+              <MapPin className="mr-2" />
+              Location Insights
+            </TabsTrigger>
+            <TabsTrigger value="terms-summarizer" className="py-2">
+              <MessagesSquare className="mr-2" />
+              Terms Summarizer
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="price-oracle">
+            <Card>
+              <CardHeader>
+                <CardTitle>AI Price Oracle</CardTitle>
+                <CardDescription>
+                  Get AI-driven price recommendations for your crops based on
+                  market data.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <PriceOracle />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="quality-inspector">
+            <Card>
+              <CardHeader>
+                <CardTitle>AI Quality Inspector</CardTitle>
+                <CardDescription>
+                  Analyze crop quality by uploading an image. Get a grade, issue
+                  report, and summary.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <QualityInspector />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="location-insights">
+            <Card>
+              <CardHeader>
+                <CardTitle>Location & Air Quality Insights</CardTitle>
+                <CardDescription>
+                  Enter a city to get its coordinates and current air quality
+                  data.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <LocationInsights />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="terms-summarizer">
+            <Card>
+              <CardHeader>
+                <CardTitle>AI Terms Summarizer</CardTitle>
+                <CardDescription>
+                  Paste a negotiation conversation to get a summary of the terms
+                  and potential issues.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <TermsSummarizer />
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      ) : (
+        <BuyerDashboard />
+      )}
     </div>
   );
 }
