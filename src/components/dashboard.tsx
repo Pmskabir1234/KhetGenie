@@ -69,7 +69,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
           <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 gap-4 h-auto bg-transparent p-0">
             <TabsTrigger value="my-listings" className="p-0 h-full w-full">
               <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
-                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center break-words">
                   <List className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.myListings}</h3>
                   <p className="text-xs text-muted-foreground mt-1">{t.myListingsShortDesc}</p>
@@ -78,7 +78,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
             </TabsTrigger>
              <TabsTrigger value="negotiation-inbox" className="p-0 h-full w-full">
               <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
-                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center break-words">
                   <Inbox className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.negotiationInbox}</h3>
                   <p className="text-xs text-muted-foreground mt-1">{t.negotiationInboxShortDesc}</p>
@@ -87,7 +87,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
             </TabsTrigger>
             <TabsTrigger value="price-oracle" className="p-0 h-full w-full">
               <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
-                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center break-words">
                   <DollarSign className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.priceOracle}</h3>
                   <p className="text-xs text-muted-foreground mt-1">{t.priceOracleShortDesc}</p>
@@ -96,7 +96,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
             </TabsTrigger>
             <TabsTrigger value="quality-inspector" className="p-0 h-full w-full">
                <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
-                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center break-words">
                   <Camera className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.qualityInspector}</h3>
                   <p className="text-xs text-muted-foreground mt-1">{t.qualityInspectorShortDesc}</p>
@@ -105,7 +105,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
             </TabsTrigger>
             <TabsTrigger value="location-insights" className="p-0 h-full w-full">
                <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
-                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center break-words">
                   <MapPin className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.locationInsights}</h3>
                   <p className="text-xs text-muted-foreground mt-1">{t.locationInsightsShortDesc}</p>
@@ -114,7 +114,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
             </TabsTrigger>
             <TabsTrigger value="terms-summarizer" className="p-0 h-full w-full">
                <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
-                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center break-words">
                   <MessagesSquare className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.termsSummarizer}</h3>
                   <p className="text-xs text-muted-foreground mt-1">{t.termsSummarizerShortDesc}</p>
