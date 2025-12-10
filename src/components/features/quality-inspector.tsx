@@ -1,23 +1,18 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { analyzeCropQualityFromImage, AnalyzeCropQualityFromImageOutput } from "@/ai/flows/analyze-crop-quality-from-image";
-import { Bot, Upload, AlertTriangle } from "lucide-react";
+import { Bot, Upload, AlertTriangle, CheckCircle, Sparkles, Image as ImageIcon, X } from "lucide-react";
 import type { Language } from "@/components/dashboard";
 import { translations } from "@/lib/translations";
-
-const formSchema = z.object({
-  photoDataUri: z.string().min(1, "Image is required"),
-});
 
 export function QualityInspector({ lang }: { lang: Language }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +33,14 @@ export function QualityInspector({ lang }: { lang: Language }) {
       reader.readAsDataURL(file);
     }
   };
+
+  const handleClearPreview = useCallback(() => {
+    setPreview(null);
+    setAnalysis(null);
+    if(fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, []);
 
   const handleSubmit = async () => {
     if (!preview) {
@@ -77,19 +80,30 @@ export function QualityInspector({ lang }: { lang: Language }) {
           onChange={handleFileChange}
           className="hidden"
         />
-        <Button onClick={() => fileInputRef.current?.click()} variant="outline" className="w-full">
-          <Upload className="mr-2 h-4 w-4" />
-          {preview ? t.changeImage : t.uploadCropImage}
-        </Button>
-
-        {preview && (
-          <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
-            <Image src={preview} alt="Crop preview" fill style={{ objectFit: 'cover' }} />
+        
+        {preview ? (
+          <div className="relative aspect-video w-full rounded-lg overflow-hidden border-2 border-dashed group">
+             <Image src={preview} alt="Crop preview" fill style={{ objectFit: 'cover' }} />
+             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <Button variant="destructive" size="icon" onClick={handleClearPreview}>
+                  <X className="h-5 w-5" />
+                  <span className="sr-only">Remove Image</span>
+                </Button>
+             </div>
+          </div>
+        ) : (
+          <div 
+            className="aspect-video w-full rounded-lg border-2 border-dashed flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <ImageIcon className="h-16 w-16 text-muted-foreground/50 mb-4" />
+            <p className="text-muted-foreground font-semibold">{t.uploadCropImage}</p>
+            <p className="text-xs text-muted-foreground/80">Click here to select a file</p>
           </div>
         )}
 
-        <Button onClick={handleSubmit} disabled={isLoading || !preview} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-          <Bot className="mr-2 h-4 w-4" />
+        <Button onClick={handleSubmit} disabled={isLoading || !preview} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-base py-6">
+          <Sparkles className="mr-2 h-5 w-5" />
           {isLoading ? t.analyzing : t.analyzeQuality}
         </Button>
       </div>
@@ -100,10 +114,15 @@ export function QualityInspector({ lang }: { lang: Language }) {
           <Card className="bg-secondary/50">
             <CardContent className="p-6 space-y-4">
               <div className="flex justify-center">
-                <Skeleton className="h-16 w-16 rounded-full" />
+                <Skeleton className="h-20 w-20 rounded-full" />
               </div>
-              <Skeleton className="h-4 w-1/2 mx-auto" />
+              <Skeleton className="h-6 w-1/2 mx-auto" />
               <div className="space-y-2 pt-4">
+                <Skeleton className="h-4 w-1/3" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+              </div>
+               <div className="space-y-2 pt-4">
                 <Skeleton className="h-4 w-1/3" />
                 <Skeleton className="h-4 w-full" />
                 <Skeleton className="h-4 w-5/6" />
@@ -113,17 +132,20 @@ export function QualityInspector({ lang }: { lang: Language }) {
         )}
         {analysis && (
           <Card className="bg-secondary/50 border-primary/50 shadow-md">
-            <CardHeader className="items-center">
-              <div className="flex items-center justify-center h-20 w-20 rounded-full bg-primary/10 border-2 border-primary">
-                <span className="text-4xl font-bold text-primary">{analysis.quality_grade}</span>
+            <CardHeader className="items-center text-center pb-4">
+              <div className="flex items-center justify-center h-24 w-24 rounded-full bg-primary/10 border-4 border-primary animate-pulse-slow">
+                <span className="text-5xl font-bold text-primary">{analysis.quality_grade}</span>
               </div>
-              <CardTitle className="text-primary text-2xl pt-2">{t.grade} {analysis.quality_grade}</CardTitle>
+              <CardTitle className="text-primary text-3xl pt-2">{t.grade} {analysis.quality_grade}</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               <div>
-                <h4 className="font-semibold flex items-center gap-2"><AlertTriangle className="text-destructive"/> {t.visibleIssues}</h4>
+                <h4 className="font-semibold flex items-center gap-2 text-lg mb-2">
+                  {analysis.visible_issues.length > 0 ? <AlertTriangle className="text-destructive"/> : <CheckCircle className="text-green-600"/>} 
+                  {t.visibleIssues}
+                </h4>
                 {analysis.visible_issues.length > 0 ? (
-                  <ul className="list-disc list-inside mt-1 space-y-1">
+                  <ul className="list-disc list-inside mt-1 space-y-1 text-destructive/90">
                     {analysis.visible_issues.map((issue, index) => (
                       <li key={index} className="text-sm">{issue}</li>
                     ))}
@@ -133,8 +155,8 @@ export function QualityInspector({ lang }: { lang: Language }) {
                 )}
               </div>
               <div>
-                <h4 className="font-semibold">{t.summary}</h4>
-                <p className="text-sm text-muted-foreground mt-1">{analysis.summary}</p>
+                <h4 className="font-semibold text-lg mb-2">{t.summary}</h4>
+                <p className="text-sm text-muted-foreground mt-1 bg-background/50 p-3 rounded-md border">{analysis.summary}</p>
               </div>
             </CardContent>
           </Card>

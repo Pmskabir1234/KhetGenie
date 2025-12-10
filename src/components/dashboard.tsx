@@ -21,16 +21,18 @@ import {
   MessagesSquare,
   BadgeInfo,
   Globe,
+  ArrowLeft,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Role } from "@/app/page";
 import { BuyerDashboard } from "@/components/buyer-dashboard";
 import { LanguageSelection } from "@/components/language-selection";
 import { translations } from "@/lib/translations";
+import { Button } from "@/components/ui/button";
 
 export type Language = "en" | "hi" | "bn";
 
-export function Dashboard({ role }: { role: Role }) {
+export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) {
   const [language, setLanguage] = useState<Language>("en");
   const [showLangSelection, setShowLangSelection] = useState(role === "farmer");
 
@@ -60,14 +62,19 @@ export function Dashboard({ role }: { role: Role }) {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Icons.logo className="h-10 w-10" />
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight font-headline text-primary">
-              KhetGenie
-            </h1>
-            <p className="text-muted-foreground">
-              Your AI assistant for the agricultural marketplace.
-            </p>
+          <Button variant="ghost" size="icon" onClick={onBack} className="h-10 w-10">
+            <ArrowLeft className="h-6 w-6" />
+          </Button>
+          <div className="flex items-center gap-4">
+            <Icons.logo className="h-10 w-10" />
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight font-headline text-primary">
+                KhetGenie
+              </h1>
+              <p className="text-muted-foreground">
+                Your AI assistant for the agricultural marketplace.
+              </p>
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
