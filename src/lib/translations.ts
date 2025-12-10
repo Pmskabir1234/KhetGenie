@@ -34,6 +34,36 @@ export const translations = {
     // Negotiation Inbox
     negotiationInboxDescription: 'View and respond to messages from potential buyers.',
     noMessages: 'You have no new messages in your inbox.',
+     negotiationMessages: [
+      {
+        id: 1,
+        sender: "Sunita Devi",
+        crop: "Fresh Tomatoes",
+        lastMessage: "I can offer you a better price if you buy in bulk. Are you interested?",
+        timestamp: "2 hours ago",
+        unread: true,
+        avatar: "https://i.pravatar.cc/150?u=sunita"
+      },
+      {
+        id: 2,
+        sender: "Rakesh Kumar",
+        crop: "Organic Wheat",
+        lastMessage: "Okay, deal. Please confirm the delivery address.",
+        timestamp: "1 day ago",
+        unread: true,
+        avatar: "https://i.pravatar.cc/150?u=rakesh"
+
+      },
+      {
+        id: 3,
+        sender: "Anil Patil",
+        crop: "Nasik Onions",
+        lastMessage: "The quality is excellent. I've attached the quality report.",
+        timestamp: "3 days ago",
+        unread: false,
+        avatar: "https://i.pravatar.cc/150?u=anil"
+      },
+    ],
 
     // Price Oracle
     aiPriceOracle: 'AI Price Oracle',
@@ -131,6 +161,36 @@ export const translations = {
     // Negotiation Inbox
     negotiationInboxDescription: 'संभावित खरीदारों से संदेश देखें और उनका जवाब दें।',
     noMessages: 'आपके इनबॉक्स में कोई नया संदेश नहीं है।',
+    negotiationMessages: [
+      {
+        id: 1,
+        sender: "सुनीता देवी",
+        crop: "ताजा टमाटर",
+        lastMessage: "यदि आप थोक में खरीदते हैं तो मैं आपको बेहतर कीमत दे सकती हूं। क्या आप रुचि रखते हैं?",
+        timestamp: "2 घंटे पहले",
+        unread: true,
+        avatar: "https://i.pravatar.cc/150?u=sunita"
+      },
+      {
+        id: 2,
+        sender: "राकेश कुमार",
+        crop: "जैविक गेहूं",
+        lastMessage: "ठीक है, सौदा पक्का। कृपया डिलीवरी का पता कन्फर्म करें।",
+        timestamp: "1 दिन पहले",
+        unread: true,
+        avatar: "https://i.pravatar.cc/150?u=rakesh"
+
+      },
+      {
+        id: 3,
+        sender: "अनिल पाटिल",
+        crop: "नासिक प्याज",
+        lastMessage: "गुणवत्ता उत्कृष्ट है। मैंने गुणवत्ता रिपोर्ट संलग्न की है।",
+        timestamp: "3 दिन पहले",
+        unread: false,
+        avatar: "https://i.pravatar.cc/150?u=anil"
+      },
+    ],
 
     // Price Oracle
     aiPriceOracle: 'एआई मूल्य Oracle',
@@ -228,6 +288,36 @@ export const translations = {
     // Negotiation Inbox
     negotiationInboxDescription: 'সম্ভাব্য ক্রেতাদের কাছ থেকে বার্তা দেখুন এবং উত্তর দিন।',
     noMessages: 'আপনার ইনবক্সে কোনো নতুন বার্তা নেই।',
+    negotiationMessages: [
+      {
+        id: 1,
+        sender: "সুনিতা দেবী",
+        crop: "তাজা টমেটো",
+        lastMessage: "আপনি যদি বাল্কে কেনেন তবে আমি আপনাকে আরও ভাল দাম দিতে পারি। আপনি কি আগ্রহী?",
+        timestamp: "2 ঘন্টা আগে",
+        unread: true,
+        avatar: "https://i.pravatar.cc/150?u=sunita"
+      },
+      {
+        id: 2,
+        sender: "রাকেশ কুমার",
+        crop: "জৈব গম",
+        lastMessage: "ঠিক আছে, চুক্তি। দয়া করে ডেলিভারি ঠিকানা নিশ্চিত করুন।",
+        timestamp: "1 দিন আগে",
+        unread: true,
+        avatar: "https://i.pravatar.cc/150?u=rakesh"
+
+      },
+      {
+        id: 3,
+        sender: "অনিল পাতিল",
+        crop: "নাসিক পেঁয়াজ",
+        lastMessage: "গুণমান চমৎকার। আমি গুণমান প্রতিবেদন সংযুক্ত করেছি।",
+        timestamp: "3 দিন আগে",
+        unread: false,
+        avatar: "https://i.pravatar.cc/150?u=anil"
+      },
+    ],
 
     // Price Oracle
     aiPriceOracle: 'এআই মূল্য ওরাকল',

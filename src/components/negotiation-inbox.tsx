@@ -8,41 +8,11 @@ import type { Language } from "@/components/login";
 import { translations } from "@/lib/translations";
 import { Bot } from "lucide-react";
 
-const dummyMessages = [
-  {
-    id: 1,
-    sender: "Sunita Devi",
-    crop: "Fresh Tomatoes",
-    lastMessage: "I can offer you a better price if you buy in bulk. Are you interested?",
-    timestamp: "2 hours ago",
-    unread: true,
-    avatar: "https://i.pravatar.cc/150?u=sunita"
-  },
-  {
-    id: 2,
-    sender: "Rakesh Kumar",
-    crop: "Organic Wheat",
-    lastMessage: "Okay, deal. Please confirm the delivery address.",
-    timestamp: "1 day ago",
-    unread: true,
-    avatar: "https://i.pravatar.cc/150?u=rakesh"
-
-  },
-  {
-    id: 3,
-    sender: "Anil Patil",
-    crop: "Nasik Onions",
-    lastMessage: "The quality is excellent. I've attached the quality report.",
-    timestamp: "3 days ago",
-    unread: false,
-    avatar: "https://i.pravatar.cc/150?u=anil"
-  },
-];
-
 export function NegotiationInbox({ lang }: { lang: Language }) {
     const t = translations[lang];
+    const messages = t.negotiationMessages;
 
-    if(dummyMessages.length === 0) {
+    if(messages.length === 0) {
         return (
              <div className="flex flex-col items-center justify-center text-center p-8 rounded-lg border-2 border-dashed h-full">
                 <Bot className="h-12 w-12 text-muted-foreground/50" />
@@ -55,7 +25,7 @@ export function NegotiationInbox({ lang }: { lang: Language }) {
 
   return (
     <div className="space-y-4">
-      {dummyMessages.map((message) => (
+      {messages.map((message) => (
         <Card key={message.id} className={`cursor-pointer hover:bg-secondary/50 ${message.unread ? "border-primary" : ""}`}>
           <CardContent className="p-4 flex items-start gap-4">
             <Avatar className="h-12 w-12 border">
