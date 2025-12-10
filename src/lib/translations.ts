@@ -1,16 +1,39 @@
+
 export const translations = {
   en: {
+    // Login
+    loginTitle: 'Welcome Back',
+    loginDescription: 'Sign in to access your dashboard.',
+    emailLabel: 'Email',
+    emailPlaceholder: 'you@example.com',
+    passwordLabel: 'Password',
+    signInButton: 'Sign In',
+    selectLanguage: 'Select Language',
+    choosePreferredLanguage: 'Please choose your preferred language.',
+
     // Tabs
+    myListings: 'My Listings',
+    negotiationInbox: 'Negotiation Inbox',
     priceOracle: 'Price Oracle',
     qualityInspector: 'Quality Inspector',
     locationInsights: 'Location Insights',
     termsSummarizer: 'Terms Summarizer',
 
     // Short Descriptions for Tabs
+    myListingsShortDesc: 'View and manage your crop listings.',
+    negotiationInboxShortDesc: 'Manage messages from buyers.',
     priceOracleShortDesc: 'Get AI-driven price suggestions.',
     qualityInspectorShortDesc: 'Analyze crop quality from an image.',
     locationInsightsShortDesc: 'Get air quality and location data.',
     termsSummarizerShortDesc: 'Summarize negotiation chats.',
+
+    // My Listings
+    myListingsDescription: 'Here are the crops you have listed for sale. You can add new listings or manage existing ones.',
+    addNewListing: 'Add New Listing',
+
+    // Negotiation Inbox
+    negotiationInboxDescription: 'View and respond to messages from potential buyers.',
+    noMessages: 'You have no new messages in your inbox.',
 
     // Price Oracle
     aiPriceOracle: 'AI Price Oracle',
@@ -75,17 +98,39 @@ export const translations = {
     summarizerDisclaimer: 'Paste a conversation and the AI summary will appear here.',
   },
   hi: {
+    // Login
+    loginTitle: 'वापस स्वागत है',
+    loginDescription: 'अपने डैशबोर्ड तक पहुंचने के लिए साइन इन करें।',
+    emailLabel: 'ईमेल',
+    emailPlaceholder: 'you@example.com',
+    passwordLabel: 'पासवर्ड',
+    signInButton: 'साइन इन करें',
+    selectLanguage: 'भाषा चुनें',
+    choosePreferredLanguage: 'कृपया अपनी पसंदीदा भाषा चुनें।',
+
     // Tabs
+    myListings: 'मेरी लिस्टिंग',
+    negotiationInbox: 'बातचीत इनबॉक्स',
     priceOracle: 'मूल्य Oracle',
     qualityInspector: 'गुणवत्ता निरीक्षक',
     locationInsights: 'स्थान अंतर्दृष्टि',
     termsSummarizer: 'शर्तें सारांशक',
 
     // Short Descriptions for Tabs
+    myListingsShortDesc: 'अपनी फसल लिस्टिंग देखें और प्रबंधित करें।',
+    negotiationInboxShortDesc: 'खरीदारों से संदेश प्रबंधित करें।',
     priceOracleShortDesc: 'एआई-संचालित मूल्य सुझाव प्राप्त करें।',
     qualityInspectorShortDesc: 'एक छवि से फसल की गुणवत्ता का विश्लेषण करें।',
     locationInsightsShortDesc: 'वायु गुणवत्ता और स्थान डेटा प्राप्त करें।',
     termsSummarizerShortDesc: 'बातचीत चैट का सारांश करें।',
+    
+    // My Listings
+    myListingsDescription: 'यहां वे फसलें हैं जिन्हें आपने बिक्री के लिए सूचीबद्ध किया है। आप नई लिस्टिंग जोड़ सकते हैं या मौजूदा को प्रबंधित कर सकते हैं।',
+    addNewListing: 'नई लिस्टिंग जोड़ें',
+
+    // Negotiation Inbox
+    negotiationInboxDescription: 'संभावित खरीदारों से संदेश देखें और उनका जवाब दें।',
+    noMessages: 'आपके इनबॉक्स में कोई नया संदेश नहीं है।',
 
     // Price Oracle
     aiPriceOracle: 'एआई मूल्य Oracle',
@@ -150,17 +195,39 @@ export const translations = {
     summarizerDisclaimer: 'एक बातचीत पेस्ट करें और एआई सारांश यहां दिखाई देगा।',
   },
   bn: {
+    // Login
+    loginTitle: 'ফিরে আসার জন্য স্বাগতম',
+    loginDescription: 'আপনার ড্যাশবোর্ড অ্যাক্সেস করতে সাইন ইন করুন।',
+    emailLabel: 'ইমেল',
+    emailPlaceholder: 'you@example.com',
+    passwordLabel: 'পাসওয়ার্ড',
+    signInButton: 'সাইন ইন করুন',
+    selectLanguage: 'ভাষা নির্বাচন করুন',
+    choosePreferredLanguage: 'আপনার পছন্দের ভাষা নির্বাচন করুন।',
+
     // Tabs
+    myListings: 'আমার তালিকা',
+    negotiationInbox: 'আলোচনা ইনবক্স',
     priceOracle: 'মূল্য ওরাকল',
     qualityInspector: 'গুণমান পরিদর্শক',
     locationInsights: 'অবস্থান অন্তর্দৃষ্টি',
     termsSummarizer: 'শর্তাবলী সংক্ষেপক',
 
     // Short Descriptions for Tabs
+    myListingsShortDesc: 'আপনার ফসলের তালিকা দেখুন এবং পরিচালনা করুন।',
+    negotiationInboxShortDesc: 'ক্রেতাদের কাছ থেকে বার্তা পরিচালনা করুন।',
     priceOracleShortDesc: 'এআই-চালিত মূল্যের পরামর্শ পান।',
     qualityInspectorShortDesc: 'একটি ছবি থেকে ফসলের গুণমান বিশ্লেষণ করুন।',
     locationInsightsShortDesc: 'বায়ু গুণমান এবং অবস্থান ডেটা পান।',
     termsSummarizerShortDesc: 'আলোচনা চ্যাটের সারসংক্ষেপ করুন।',
+
+    // My Listings
+    myListingsDescription: 'এখানে আপনার বিক্রয়ের জন্য তালিকাভুক্ত ফসল রয়েছে। আপনি নতুন তালিকা যোগ করতে বা বিদ্যমানগুলি পরিচালনা করতে পারেন।',
+    addNewListing: 'নতুন তালিকা যোগ করুন',
+
+    // Negotiation Inbox
+    negotiationInboxDescription: 'সম্ভাব্য ক্রেতাদের কাছ থেকে বার্তা দেখুন এবং উত্তর দিন।',
+    noMessages: 'আপনার ইনবক্সে কোনো নতুন বার্তা নেই।',
 
     // Price Oracle
     aiPriceOracle: 'এআই মূল্য ওরাকল',

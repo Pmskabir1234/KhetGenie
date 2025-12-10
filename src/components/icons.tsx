@@ -1,4 +1,5 @@
-import { Leaf, type LucideProps } from "lucide-react";
+
+import { Leaf, type LucideProps, Tractor, User } from "lucide-react";
 
 export const Icons = {
   logo: (props: LucideProps) => (
@@ -6,4 +7,6 @@ export const Icons = {
       <Leaf {...props} />
     </div>
   ),
+  farmer: Tractor,
+  buyer: User,
 };

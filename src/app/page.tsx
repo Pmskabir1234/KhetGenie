@@ -1,14 +1,22 @@
+
 "use client";
 
 import { useState } from "react";
 import { Dashboard } from "@/components/dashboard";
 import { RoleSelection } from "@/components/role-selection";
 import { Icons } from "@/components/icons";
+import { Login } from "@/components/login";
 
 export type Role = "farmer" | "buyer";
 
 export default function Home() {
   const [role, setRole] = useState<Role | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleBackToRoleSelection = () => {
+    setRole(null);
+    setIsLoggedIn(false);
+  }
 
   if (!role) {
     return (
@@ -29,10 +37,14 @@ export default function Home() {
     );
   }
 
+  if (!isLoggedIn) {
+    return <Login role={role} onLogin={() => setIsLoggedIn(true)} onBack={handleBackToRoleSelection} />;
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-        <Dashboard role={role} onBack={() => setRole(null)} />
+        <Dashboard role={role} onBack={handleBackToRoleSelection} />
       </main>
     </div>
   );

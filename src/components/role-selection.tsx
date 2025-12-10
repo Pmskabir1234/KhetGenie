@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,11 +16,11 @@ export function RoleSelection({ onSelectRole }: RoleSelectionProps) {
         className="cursor-pointer hover:bg-primary/10 hover:border-primary transition-all transform hover:scale-105"
         onClick={() => onSelectRole("farmer")}
       >
-        <CardHeader className="items-center text-center">
+        <CardHeader className="items-center text-center p-8">
           <Tractor className="h-16 w-16 mb-4 text-primary" />
           <CardTitle className="text-2xl">I am a Farmer</CardTitle>
-          <CardDescription>
-            I want to list my crops, get price suggestions, and connect with buyers.
+          <CardDescription className="mt-2">
+            List crops, get price suggestions, and connect with buyers.
           </CardDescription>
         </CardHeader>
       </Card>
@@ -27,11 +28,11 @@ export function RoleSelection({ onSelectRole }: RoleSelectionProps) {
         className="cursor-pointer hover:bg-accent/10 hover:border-accent transition-all transform hover:scale-105"
         onClick={() => onSelectRole("buyer")}
       >
-        <CardHeader className="items-center text-center">
+        <CardHeader className="items-center text-center p-8">
           <User className="h-16 w-16 mb-4 text-accent" />
           <CardTitle className="text-2xl">I am a Buyer</CardTitle>
-          <CardDescription>
-            I want to browse available crops, view prices, and negotiate with farmers.
+          <CardDescription className="mt-2">
+            Browse available crops, view prices, and negotiate with farmers.
           </CardDescription>
         </CardHeader>
       </Card>

@@ -1,10 +1,12 @@
+
 "use client";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import type { Language } from "@/components/dashboard";
+import type { Language } from "@/components/login";
 
 interface LanguageSelectionProps {
   onSelectLanguage: (language: Language) => void;
+  selectedLanguage: Language;
 }
 
 const languages: { code: Language; name: string; nativeName: string }[] = [
@@ -13,13 +15,13 @@ const languages: { code: Language; name: string; nativeName: string }[] = [
   { code: "bn", name: "Bengali", nativeName: "বাংলা" },
 ];
 
-export function LanguageSelection({ onSelectLanguage }: LanguageSelectionProps) {
+export function LanguageSelection({ onSelectLanguage, selectedLanguage }: LanguageSelectionProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
       {languages.map((lang) => (
         <Card
           key={lang.code}
-          className="cursor-pointer hover:bg-primary/10 hover:border-primary transition-all transform hover:scale-105"
+          className={`cursor-pointer hover:bg-primary/10 hover:border-primary transition-all transform hover:scale-105 ${selectedLanguage === lang.code ? 'border-primary bg-primary/10' : ''}`}
           onClick={() => onSelectLanguage(lang.code)}
         >
           <CardHeader className="items-center text-center">

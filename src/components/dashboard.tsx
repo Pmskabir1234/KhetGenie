@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -20,42 +21,21 @@ import {
   MapPin,
   MessagesSquare,
   BadgeInfo,
-  Globe,
   ArrowLeft,
+  List,
+  Inbox,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Role } from "@/app/page";
 import { BuyerDashboard } from "@/components/buyer-dashboard";
-import { LanguageSelection } from "@/components/language-selection";
+import { Language } from "@/components/login";
 import { translations } from "@/lib/translations";
 import { Button } from "@/components/ui/button";
-
-export type Language = "en" | "hi" | "bn";
+import { FarmerListings } from "@/components/farmer-listings";
+import { NegotiationInbox } from "@/components/negotiation-inbox";
 
 export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) {
   const [language, setLanguage] = useState<Language>("en");
-  const [showLangSelection, setShowLangSelection] = useState(role === "farmer");
-
-  if (role === "farmer" && showLangSelection) {
-    return (
-      <div className="flex flex-col items-center justify-center flex-1 py-8">
-        <div className="flex items-center gap-4 mb-8">
-          <Globe className="h-10 w-10 text-primary" />
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight">Select Language</h2>
-            <p className="text-muted-foreground">Please choose your preferred language.</p>
-          </div>
-        </div>
-        <LanguageSelection
-          onSelectLanguage={(lang) => {
-            setLanguage(lang);
-            setShowLangSelection(false);
-          }}
-        />
-      </div>
-    );
-  }
-  
   const t = translations[language];
 
   return (
@@ -86,7 +66,25 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
       </div>
       {role === "farmer" ? (
         <Tabs defaultValue="price-oracle" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-4 h-auto bg-transparent p-0">
+          <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 gap-4 h-auto bg-transparent p-0">
+            <TabsTrigger value="my-listings" className="p-0 h-full w-full">
+              <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                  <List className="h-10 w-10 mb-2 text-primary" />
+                  <h3 className="font-semibold">{t.myListings}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{t.myListingsShortDesc}</p>
+                </CardContent>
+              </Card>
+            </TabsTrigger>
+             <TabsTrigger value="negotiation-inbox" className="p-0 h-full w-full">
+              <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                  <Inbox className="h-10 w-10 mb-2 text-primary" />
+                  <h3 className="font-semibold">{t.negotiationInbox}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{t.negotiationInboxShortDesc}</p>
+                </CardContent>
+              </Card>
+            </TabsTrigger>
             <TabsTrigger value="price-oracle" className="p-0 h-full w-full">
               <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
@@ -125,6 +123,32 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
             </TabsTrigger>
           </TabsList>
           <div className="mt-6">
+            <TabsContent value="my-listings">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t.myListings}</CardTitle>
+                  <CardDescription>
+                    {t.myListingsDescription}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <FarmerListings lang={language} />
+                </CardContent>
+              </Card>
+            </TabsContent>
+             <TabsContent value="negotiation-inbox">
+                <Card>
+                    <CardHeader>
+                    <CardTitle>{t.negotiationInbox}</CardTitle>
+                    <CardDescription>
+                        {t.negotiationInboxDescription}
+                    </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <NegotiationInbox lang={language} />
+                    </CardContent>
+                </Card>
+            </TabsContent>
             <TabsContent value="price-oracle">
               <Card>
                 <CardHeader>
