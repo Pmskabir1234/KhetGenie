@@ -71,7 +71,7 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
                   <List className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.myListings}</h3>
-                  <p className="text-xs text-muted-foreground mt-1 break-words">{t.myListingsShortDesc}</p>
+                  <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.myListingsShortDesc}</p>
                 </CardContent>
               </Card>
             </TabsTrigger>
@@ -80,7 +80,7 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
                   <Inbox className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.negotiationInbox}</h3>
-                  <p className="text-xs text-muted-foreground mt-1 break-words">{t.negotiationInboxShortDesc}</p>
+                  <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.negotiationInboxShortDesc}</p>
                 </CardContent>
               </Card>
             </TabsTrigger>
@@ -89,7 +89,7 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
                   <DollarSign className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.priceOracle}</h3>
-                  <p className="text-xs text-muted-foreground mt-1 break-words">{t.priceOracleShortDesc}</p>
+                  <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.priceOracleShortDesc}</p>
                 </CardContent>
               </Card>
             </TabsTrigger>
@@ -98,7 +98,7 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
                   <Camera className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.qualityInspector}</h3>
-                  <p className="text-xs text-muted-foreground mt-1 break-words">{t.qualityInspectorShortDesc}</p>
+                  <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.qualityInspectorShortDesc}</p>
                 </CardContent>
               </Card>
             </TabsTrigger>
@@ -107,7 +107,7 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
                   <MapPin className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.locationInsights}</h3>
-                  <p className="text-xs text-muted-foreground mt-1 break-words">{t.locationInsightsShortDesc}</p>
+                  <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.locationInsightsShortDesc}</p>
                 </CardContent>
               </Card>
             </TabsTrigger>
@@ -116,7 +116,7 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
                   <MessagesSquare className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.termsSummarizer}</h3>
-                  <p className="text-xs text-muted-foreground mt-1 break-words">{t.termsSummarizerShortDesc}</p>
+                  <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.termsSummarizerShortDesc}</p>
                 </CardContent>
               </Card>
             </TabsTrigger>
