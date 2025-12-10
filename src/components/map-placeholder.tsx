@@ -15,9 +15,9 @@ type MapPlaceholderProps = {
 export function MapPlaceholder({ lat, lon, children, className }: MapPlaceholderProps) {
   const mapImage = PlaceHolderImages.find((img) => img.id === "map-background");
 
-  // Simplified mercator projection for placeholder
-  const y = (90 - lat) / 180 * 100;
-  const x = (180 + lon) / 360 * 100;
+  // Corrected simplified linear projection for placeholder
+  const y = ((-lat + 90) / 180) * 100;
+  const x = ((lon + 180) / 360) * 100;
 
   if (!mapImage) {
     return <div className={cn("w-full aspect-video bg-muted rounded-lg", className)}>Map image not found.</div>;
