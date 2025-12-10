@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -19,12 +20,34 @@ import {
   MapPin,
   MessagesSquare,
   BadgeInfo,
+  Globe,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Role } from "@/app/page";
 import { BuyerDashboard } from "@/components/buyer-dashboard";
+import { LanguageSelection } from "@/components/language-selection";
+
+export type Language = "en" | "hi" | "bn";
 
 export function Dashboard({ role }: { role: Role }) {
+  const [language, setLanguage] = useState<Language | null>(null);
+
+  if (role === "farmer" && !language) {
+    return (
+        <div className="flex flex-col items-center justify-center flex-1 py-8">
+            <div className="flex items-center gap-4 mb-8">
+              <Globe className="h-10 w-10 text-primary" />
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight">Select Language</h2>
+                <p className="text-muted-foreground">Please choose your preferred language.</p>
+              </div>
+            </div>
+            <LanguageSelection onSelectLanguage={setLanguage} />
+        </div>
+    );
+  }
+
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
