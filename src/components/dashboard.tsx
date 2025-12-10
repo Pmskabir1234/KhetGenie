@@ -18,20 +18,31 @@ import {
   DollarSign,
   MapPin,
   MessagesSquare,
+  BadgeInfo,
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import type { Role } from "@/app/page";
 
-export function Dashboard() {
+export function Dashboard({ role }: { role: Role }) {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <Icons.logo className="h-10 w-10" />
-        <div>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight font-headline text-primary">
-            KhetGenie
-          </h1>
-          <p className="text-muted-foreground">
-            Your AI assistant for the agricultural marketplace.
-          </p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Icons.logo className="h-10 w-10" />
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight font-headline text-primary">
+              KhetGenie
+            </h1>
+            <p className="text-muted-foreground">
+              Your AI assistant for the agricultural marketplace.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+            <BadgeInfo className="h-5 w-5 text-muted-foreground" />
+            <Badge variant="outline" className="text-lg capitalize py-1 px-3">
+              {role}
+            </Badge>
         </div>
       </div>
       <Tabs defaultValue="price-oracle" className="w-full">
