@@ -6,6 +6,12 @@ export const translations = {
     locationInsights: 'Location Insights',
     termsSummarizer: 'Terms Summarizer',
 
+    // Short Descriptions for Tabs
+    priceOracleShortDesc: 'Get AI-driven price suggestions.',
+    qualityInspectorShortDesc: 'Analyze crop quality from an image.',
+    locationInsightsShortDesc: 'Get air quality and location data.',
+    termsSummarizerShortDesc: 'Summarize negotiation chats.',
+
     // Price Oracle
     aiPriceOracle: 'AI Price Oracle',
     priceOracleDescription: 'Get AI-driven price recommendations for your crops based on market data.',
@@ -75,6 +81,12 @@ export const translations = {
     locationInsights: 'स्थान अंतर्दृष्टि',
     termsSummarizer: 'शर्तें सारांशक',
 
+    // Short Descriptions for Tabs
+    priceOracleShortDesc: 'एआई-संचालित मूल्य सुझाव प्राप्त करें।',
+    qualityInspectorShortDesc: 'एक छवि से फसल की गुणवत्ता का विश्लेषण करें।',
+    locationInsightsShortDesc: 'वायु गुणवत्ता और स्थान डेटा प्राप्त करें।',
+    termsSummarizerShortDesc: 'बातचीत चैट का सारांश करें।',
+
     // Price Oracle
     aiPriceOracle: 'एआई मूल्य Oracle',
     priceOracleDescription: 'बाजार के आंकड़ों के आधार पर अपनी फसलों के लिए एआई-संचालित मूल्य सिफारिशें प्राप्त करें।',
@@ -143,6 +155,12 @@ export const translations = {
     qualityInspector: 'গুণমান পরিদর্শক',
     locationInsights: 'অবস্থান অন্তর্দৃষ্টি',
     termsSummarizer: 'শর্তাবলী সংক্ষেপক',
+
+    // Short Descriptions for Tabs
+    priceOracleShortDesc: 'এআই-চালিত মূল্যের পরামর্শ পান।',
+    qualityInspectorShortDesc: 'একটি ছবি থেকে ফসলের গুণমান বিশ্লেষণ করুন।',
+    locationInsightsShortDesc: 'বায়ু গুণমান এবং অবস্থান ডেটা পান।',
+    termsSummarizerShortDesc: 'আলোচনা চ্যাটের সারসংক্ষেপ করুন।',
 
     // Price Oracle
     aiPriceOracle: 'এআই মূল্য ওরাকল',

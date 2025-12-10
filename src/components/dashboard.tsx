@@ -86,76 +86,98 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
       </div>
       {role === "farmer" ? (
         <Tabs defaultValue="price-oracle" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
-            <TabsTrigger value="price-oracle" className="py-2">
-              <DollarSign className="mr-2" />
-              {t.priceOracle}
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-4 h-auto bg-transparent p-0">
+            <TabsTrigger value="price-oracle" className="p-0 h-full w-full">
+              <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                  <DollarSign className="h-10 w-10 mb-2 text-primary" />
+                  <h3 className="font-semibold">{t.priceOracle}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{t.priceOracleShortDesc}</p>
+                </CardContent>
+              </Card>
             </TabsTrigger>
-            <TabsTrigger value="quality-inspector" className="py-2">
-              <Camera className="mr-2" />
-              {t.qualityInspector}
+            <TabsTrigger value="quality-inspector" className="p-0 h-full w-full">
+               <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                  <Camera className="h-10 w-10 mb-2 text-primary" />
+                  <h3 className="font-semibold">{t.qualityInspector}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{t.qualityInspectorShortDesc}</p>
+                </CardContent>
+              </Card>
             </TabsTrigger>
-            <TabsTrigger value="location-insights" className="py-2">
-              <MapPin className="mr-2" />
-              {t.locationInsights}
+            <TabsTrigger value="location-insights" className="p-0 h-full w-full">
+               <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                  <MapPin className="h-10 w-10 mb-2 text-primary" />
+                  <h3 className="font-semibold">{t.locationInsights}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{t.locationInsightsShortDesc}</p>
+                </CardContent>
+              </Card>
             </TabsTrigger>
-            <TabsTrigger value="terms-summarizer" className="py-2">
-              <MessagesSquare className="mr-2" />
-              {t.termsSummarizer}
+            <TabsTrigger value="terms-summarizer" className="p-0 h-full w-full">
+               <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
+                <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                  <MessagesSquare className="h-10 w-10 mb-2 text-primary" />
+                  <h3 className="font-semibold">{t.termsSummarizer}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{t.termsSummarizerShortDesc}</p>
+                </CardContent>
+              </Card>
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="price-oracle">
-            <Card>
-              <CardHeader>
-                <CardTitle>{t.aiPriceOracle}</CardTitle>
-                <CardDescription>
-                  {t.priceOracleDescription}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <PriceOracle lang={language} />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="quality-inspector">
-            <Card>
-              <CardHeader>
-                <CardTitle>{t.aiQualityInspector}</CardTitle>
-                <CardDescription>
-                  {t.qualityInspectorDescription}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <QualityInspector lang={language} />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="location-insights">
-            <Card>
-              <CardHeader>
-                <CardTitle>{t.locationInsightsTitle}</CardTitle>
-                <CardDescription>
-                  {t.locationInsightsDescription}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <LocationInsights lang={language} />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="terms-summarizer">
-            <Card>
-              <CardHeader>
-                <CardTitle>{t.aiTermsSummarizer}</CardTitle>
-                <CardDescription>
-                  {t.termsSummarizerDescription}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <TermsSummarizer lang={language} />
-              </CardContent>
-            </Card>
-          </TabsContent>
+          <div className="mt-6">
+            <TabsContent value="price-oracle">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t.aiPriceOracle}</CardTitle>
+                  <CardDescription>
+                    {t.priceOracleDescription}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <PriceOracle lang={language} />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="quality-inspector">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t.aiQualityInspector}</CardTitle>
+                  <CardDescription>
+                    {t.qualityInspectorDescription}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <QualityInspector lang={language} />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="location-insights">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t.locationInsightsTitle}</CardTitle>
+                  <CardDescription>
+                    {t.locationInsightsDescription}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <LocationInsights lang={language} />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="terms-summarizer">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t.aiTermsSummarizer}</CardTitle>
+                  <CardDescription>
+                    {t.termsSummarizerDescription}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <TermsSummarizer lang={language} />
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </div>
         </Tabs>
       ) : (
         <BuyerDashboard />
