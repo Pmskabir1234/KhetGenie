@@ -29,6 +29,54 @@
       "description": "A basket full of yellow onions.",
       "imageUrl": "https://images.unsplash.com/photo-1678954157574-cbbed4d055ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxvbmlvbiUyMGJhc2tldHxlbnwwfHx8fDE3NjUzODAwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "onion basket"
+    },
+    {
+      "id": "basmati-rice",
+      "description": "A pile of uncooked basmati rice.",
+      "imageUrl": "https://images.unsplash.com/photo-1630409346824-4f0e7b080087?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxiYXNtYXRpJTIwcmljZXxlbnwwfHx8fDE3NjUzODM2Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "basmati rice"
+    },
+    {
+      "id": "alphonso-mangoes",
+      "description": "A crate of ripe Alphonso mangoes.",
+      "imageUrl": "https://images.unsplash.com/photo-1697320834644-702cce927929?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YWxwaG9uc28lMjBtYW5nb2VzfGVufDB8fHx8MTc2NTM4MzYyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "alphonso mangoes"
+    },
+    {
+      "id": "sugarcane-field",
+      "description": "A field of tall sugarcane stalks.",
+      "imageUrl": "https://images.unsplash.com/photo-1606707761700-86b58f251a01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzdWdhcmNhbmUlMjBmaWVsZHxlbnwwfHx8fDE3NjUzODM2Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sugarcane field"
+    },
+    {
+      "id": "cotton-plant",
+      "description": "A cotton plant with open bolls.",
+      "imageUrl": "https://images.unsplash.com/photo-1616431101491-554c0932ea40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb3R0b24lMjBwbGFudHxlbnwwfHx8fDE3NjUzNTYxNDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cotton plant"
+    },
+    {
+      "id": "cardamom-pods",
+      "description": "A pile of green cardamom pods.",
+      "imageUrl": "https://images.unsplash.com/photo-1701190882981-eefd61eeec88?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXJkYW1vbSUyMHBvZHN8ZW58MHx8fHwxNzY1MzgzNjI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cardamom pods"
+    },
+    {
+      "id": "darjeeling-tea",
+      "description": "Dry Darjeeling tea leaves in a bowl.",
+      "imageUrl": "https://images.unsplash.com/photo-1433891248364-3ce993ff0e92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0ZWElMjBsZWF2ZXN8ZW58MHx8fHwxNzY1MzcxOTU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tea leaves"
+    },
+    {
+      "id": "coconuts",
+      "description": "A bunch of coconuts on a palm tree.",
+      "imageUrl": "https://images.unsplash.com/photo-1655558133164-555eae72edb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjb2NvbnV0c3xlbnwwfHx8fDE3NjUzODM2Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coconuts"
+    },
+    {
+      "id": "jute-fiber",
+      "description": "A bundle of raw jute fiber.",
+      "imageUrl": "https://images.unsplash.com/photo-1757769329920-5c31af2f48dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8anV0ZSUyMGZpYmVyfGVufDB8fHx8MTc2NTM4MzYyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "jute fiber"
     }
   ]
 }
