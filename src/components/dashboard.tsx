@@ -26,27 +26,35 @@ import { Badge } from "@/components/ui/badge";
 import type { Role } from "@/app/page";
 import { BuyerDashboard } from "@/components/buyer-dashboard";
 import { LanguageSelection } from "@/components/language-selection";
+import { translations } from "@/lib/translations";
 
 export type Language = "en" | "hi" | "bn";
 
 export function Dashboard({ role }: { role: Role }) {
-  const [language, setLanguage] = useState<Language | null>(null);
+  const [language, setLanguage] = useState<Language>("en");
+  const [showLangSelection, setShowLangSelection] = useState(role === "farmer");
 
-  if (role === "farmer" && !language) {
+  if (role === "farmer" && showLangSelection) {
     return (
-        <div className="flex flex-col items-center justify-center flex-1 py-8">
-            <div className="flex items-center gap-4 mb-8">
-              <Globe className="h-10 w-10 text-primary" />
-              <div>
-                <h2 className="text-3xl font-bold tracking-tight">Select Language</h2>
-                <p className="text-muted-foreground">Please choose your preferred language.</p>
-              </div>
-            </div>
-            <LanguageSelection onSelectLanguage={setLanguage} />
+      <div className="flex flex-col items-center justify-center flex-1 py-8">
+        <div className="flex items-center gap-4 mb-8">
+          <Globe className="h-10 w-10 text-primary" />
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">Select Language</h2>
+            <p className="text-muted-foreground">Please choose your preferred language.</p>
+          </div>
         </div>
+        <LanguageSelection
+          onSelectLanguage={(lang) => {
+            setLanguage(lang);
+            setShowLangSelection(false);
+          }}
+        />
+      </div>
     );
   }
-
+  
+  const t = translations[language];
 
   return (
     <div className="flex flex-col gap-4">
@@ -74,74 +82,70 @@ export function Dashboard({ role }: { role: Role }) {
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
             <TabsTrigger value="price-oracle" className="py-2">
               <DollarSign className="mr-2" />
-              Price Oracle
+              {t.priceOracle}
             </TabsTrigger>
             <TabsTrigger value="quality-inspector" className="py-2">
               <Camera className="mr-2" />
-              Quality Inspector
+              {t.qualityInspector}
             </TabsTrigger>
             <TabsTrigger value="location-insights" className="py-2">
               <MapPin className="mr-2" />
-              Location Insights
+              {t.locationInsights}
             </TabsTrigger>
             <TabsTrigger value="terms-summarizer" className="py-2">
               <MessagesSquare className="mr-2" />
-              Terms Summarizer
+              {t.termsSummarizer}
             </TabsTrigger>
           </TabsList>
           <TabsContent value="price-oracle">
             <Card>
               <CardHeader>
-                <CardTitle>AI Price Oracle</CardTitle>
+                <CardTitle>{t.aiPriceOracle}</CardTitle>
                 <CardDescription>
-                  Get AI-driven price recommendations for your crops based on
-                  market data.
+                  {t.priceOracleDescription}
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <PriceOracle />
+                <PriceOracle lang={language} />
               </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="quality-inspector">
             <Card>
               <CardHeader>
-                <CardTitle>AI Quality Inspector</CardTitle>
+                <CardTitle>{t.aiQualityInspector}</CardTitle>
                 <CardDescription>
-                  Analyze crop quality by uploading an image. Get a grade, issue
-                  report, and summary.
+                  {t.qualityInspectorDescription}
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <QualityInspector />
+                <QualityInspector lang={language} />
               </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="location-insights">
             <Card>
               <CardHeader>
-                <CardTitle>Location & Air Quality Insights</CardTitle>
+                <CardTitle>{t.locationInsightsTitle}</CardTitle>
                 <CardDescription>
-                  Enter a city to get its coordinates and current air quality
-                  data.
+                  {t.locationInsightsDescription}
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <LocationInsights />
+                <LocationInsights lang={language} />
               </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="terms-summarizer">
             <Card>
               <CardHeader>
-                <CardTitle>AI Terms Summarizer</CardTitle>
+                <CardTitle>{t.aiTermsSummarizer}</CardTitle>
                 <CardDescription>
-                  Paste a negotiation conversation to get a summary of the terms
-                  and potential issues.
+                  {t.termsSummarizerDescription}
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <TermsSummarizer />
+                <TermsSummarizer lang={language} />
               </CardContent>
             </Card>
           </TabsContent>

@@ -20,16 +20,19 @@ import { useToast } from "@/hooks/use-toast";
 import { GeocodingResponse, AirQualityResponse } from "@/lib/types";
 import { MapPlaceholder } from "@/components/map-placeholder";
 import { Bot, Search, Wind, Droplets, MapPin, Gauge } from "lucide-react";
+import type { Language } from "@/components/dashboard";
+import { translations } from "@/lib/translations";
 
 const formSchema = z.object({
   city: z.string().min(2, { message: "City name must be at least 2 characters." }),
 });
 
-export function LocationInsights() {
+export function LocationInsights({ lang }: { lang: Language }) {
   const [isLoading, setIsLoading] = useState(false);
   const [coordinates, setCoordinates] = useState<{ lat: number; lon: number } | null>(null);
   const [aqi, setAqi] = useState<AirQualityResponse | null>(null);
   const { toast } = useToast();
+  const t = translations[lang];
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -106,7 +109,7 @@ export function LocationInsights() {
                 <FormItem className="flex-grow">
                   <FormLabel className="sr-only">City</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter a city name..." {...field} />
+                    <Input placeholder={t.cityPlaceholder} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -114,7 +117,7 @@ export function LocationInsights() {
             />
             <Button type="submit" disabled={isLoading} className="bg-accent hover:bg-accent/90 text-accent-foreground">
               <Search className="mr-2 h-4 w-4" />
-              {isLoading ? "Searching..." : "Search"}
+              {isLoading ? t.searching : t.search}
             </Button>
           </form>
         </Form>
@@ -137,7 +140,7 @@ export function LocationInsights() {
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-center md:text-left">Results</h3>
+        <h3 className="text-lg font-semibold text-center md:text-left">{t.results}</h3>
         {aqi && coordinates ? (
           <Card className="bg-secondary/50 border-primary/50 shadow-md">
             <CardHeader>
@@ -146,11 +149,11 @@ export function LocationInsights() {
                 {form.getValues("city")}
               </CardTitle>
               <div className="text-sm text-muted-foreground">
-                Lat: {coordinates.lat.toFixed(4)}, Lon: {coordinates.lon.toFixed(4)}
+                {t.lat}: {coordinates.lat.toFixed(4)}, {t.lon}: {coordinates.lon.toFixed(4)}
               </div>
             </CardHeader>
             <CardContent>
-              <h4 className="font-semibold mb-2">Air Quality Report</h4>
+              <h4 className="font-semibold mb-2">{t.airQualityReport}</h4>
               <div className="p-4 rounded-lg bg-background border mb-4">
                 <p className={`text-xl font-bold ${aqiStatus.color}`}>{aqiStatus.status}</p>
                 <p className="text-sm text-muted-foreground">{aqiStatus.advice}</p>
@@ -172,7 +175,7 @@ export function LocationInsights() {
             <div className="flex flex-col items-center justify-center text-center p-8 rounded-lg border-2 border-dashed h-full">
                 <Bot className="h-12 w-12 text-muted-foreground/50" />
                 <p className="mt-4 text-sm text-muted-foreground">
-                Search for a city to see location and air quality insights.
+                {t.locationSearchDisclaimer}
                 </p>
             </div>
         )}

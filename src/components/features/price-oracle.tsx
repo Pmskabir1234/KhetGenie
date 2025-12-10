@@ -20,6 +20,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getPriceRecommendation, PriceRecommendationOutput } from "@/ai/flows/price-recommendation-for-listing";
 import { useToast } from "@/hooks/use-toast";
 import { Bot } from "lucide-react";
+import type { Language } from "@/components/dashboard";
+import { translations } from "@/lib/translations";
 
 const formSchema = z.object({
   crop_name: z.string().min(2, { message: "Crop name must be at least 2 characters." }),
@@ -28,10 +30,11 @@ const formSchema = z.object({
   quantity: z.coerce.number().positive({ message: "Quantity must be a positive number." }),
 });
 
-export function PriceOracle() {
+export function PriceOracle({ lang }: { lang: Language }) {
   const [isLoading, setIsLoading] = useState(false);
   const [recommendation, setRecommendation] = useState<PriceRecommendationOutput | null>(null);
   const { toast } = useToast();
+  const t = translations[lang];
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,9 +73,9 @@ export function PriceOracle() {
             name="crop_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Crop Name</FormLabel>
+                <FormLabel>{t.cropName}</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g., Wheat" {...field} />
+                  <Input placeholder={t.cropNamePlaceholder} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -83,9 +86,9 @@ export function PriceOracle() {
             name="region"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Region</FormLabel>
+                <FormLabel>{t.region}</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g., Punjab" {...field} />
+                  <Input placeholder={t.regionPlaceholder} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,9 +99,9 @@ export function PriceOracle() {
             name="seasonality"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Seasonality (Optional)</FormLabel>
+                <FormLabel>{t.seasonality}</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g., Winter" {...field} />
+                  <Input placeholder={t.seasonalityPlaceholder} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -109,7 +112,7 @@ export function PriceOracle() {
             name="quantity"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Quantity (in KG)</FormLabel>
+                <FormLabel>{t.quantity}</FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="100" {...field} />
                 </FormControl>
@@ -119,13 +122,13 @@ export function PriceOracle() {
           />
           <Button type="submit" disabled={isLoading} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
             <Bot className="mr-2 h-4 w-4" />
-            {isLoading ? "Getting Recommendation..." : "Get Price Recommendation"}
+            {isLoading ? t.gettingPriceButton : t.getPriceButton}
           </Button>
         </form>
       </Form>
       
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-center md:text-left">Recommendation</h3>
+        <h3 className="text-lg font-semibold text-center md:text-left">{t.recommendation}</h3>
         {isLoading && (
           <Card className="bg-secondary/50">
             <CardContent className="p-6 space-y-4">
@@ -142,16 +145,16 @@ export function PriceOracle() {
           <Card className="bg-secondary/50 border-primary/50 shadow-md">
             <CardHeader>
               <CardTitle className="text-primary text-center text-2xl">
-                {recommendation.min_price?.toFixed(2) ?? 'N/A'} - {recommendation.max_price?.toFixed(2) ?? 'N/A'} <span className="text-sm font-medium text-muted-foreground"> per kg</span>
+                {recommendation.min_price?.toFixed(2) ?? 'N/A'} - {recommendation.max_price?.toFixed(2) ?? 'N/A'} <span className="text-sm font-medium text-muted-foreground">{t.pricePerKg}</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-center">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Confidence</p>
+                <p className="text-sm font-medium text-muted-foreground">{t.confidence}</p>
                 <p className="text-lg font-semibold capitalize">{recommendation.confidence}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Justification</p>
+                <p className="text-sm font-medium text-muted-foreground">{t.justification}</p>
                 <p className="text-sm">{recommendation.justification}</p>
               </div>
             </CardContent>
@@ -161,7 +164,7 @@ export function PriceOracle() {
             <div className="flex flex-col items-center justify-center text-center p-8 rounded-lg border-2 border-dashed h-full">
                 <Bot className="h-12 w-12 text-muted-foreground/50" />
                 <p className="mt-4 text-sm text-muted-foreground">
-                AI recommendations will appear here.
+                {t.aiDisclaimer}
                 </p>
             </div>
          )}

@@ -12,17 +12,20 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { analyzeCropQualityFromImage, AnalyzeCropQualityFromImageOutput } from "@/ai/flows/analyze-crop-quality-from-image";
 import { Bot, Upload, AlertTriangle } from "lucide-react";
+import type { Language } from "@/components/dashboard";
+import { translations } from "@/lib/translations";
 
 const formSchema = z.object({
   photoDataUri: z.string().min(1, "Image is required"),
 });
 
-export function QualityInspector() {
+export function QualityInspector({ lang }: { lang: Language }) {
   const [isLoading, setIsLoading] = useState(false);
   const [analysis, setAnalysis] = useState<AnalyzeCropQualityFromImageOutput | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const t = translations[lang];
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -76,7 +79,7 @@ export function QualityInspector() {
         />
         <Button onClick={() => fileInputRef.current?.click()} variant="outline" className="w-full">
           <Upload className="mr-2 h-4 w-4" />
-          {preview ? "Change Image" : "Upload Crop Image"}
+          {preview ? t.changeImage : t.uploadCropImage}
         </Button>
 
         {preview && (
@@ -87,12 +90,12 @@ export function QualityInspector() {
 
         <Button onClick={handleSubmit} disabled={isLoading || !preview} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
           <Bot className="mr-2 h-4 w-4" />
-          {isLoading ? "Analyzing..." : "Analyze Quality"}
+          {isLoading ? t.analyzing : t.analyzeQuality}
         </Button>
       </div>
       
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-center md:text-left">Analysis Report</h3>
+        <h3 className="text-lg font-semibold text-center md:text-left">{t.analysisReport}</h3>
         {isLoading && (
           <Card className="bg-secondary/50">
             <CardContent className="p-6 space-y-4">
@@ -114,11 +117,11 @@ export function QualityInspector() {
               <div className="flex items-center justify-center h-20 w-20 rounded-full bg-primary/10 border-2 border-primary">
                 <span className="text-4xl font-bold text-primary">{analysis.quality_grade}</span>
               </div>
-              <CardTitle className="text-primary text-2xl pt-2">Grade {analysis.quality_grade}</CardTitle>
+              <CardTitle className="text-primary text-2xl pt-2">{t.grade} {analysis.quality_grade}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <h4 className="font-semibold flex items-center gap-2"><AlertTriangle className="text-destructive"/> Visible Issues</h4>
+                <h4 className="font-semibold flex items-center gap-2"><AlertTriangle className="text-destructive"/> {t.visibleIssues}</h4>
                 {analysis.visible_issues.length > 0 ? (
                   <ul className="list-disc list-inside mt-1 space-y-1">
                     {analysis.visible_issues.map((issue, index) => (
@@ -126,11 +129,11 @@ export function QualityInspector() {
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-sm text-muted-foreground mt-1">No major issues detected.</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t.noIssues}</p>
                 )}
               </div>
               <div>
-                <h4 className="font-semibold">Summary</h4>
+                <h4 className="font-semibold">{t.summary}</h4>
                 <p className="text-sm text-muted-foreground mt-1">{analysis.summary}</p>
               </div>
             </CardContent>
@@ -140,7 +143,7 @@ export function QualityInspector() {
             <div className="flex flex-col items-center justify-center text-center p-8 rounded-lg border-2 border-dashed h-full">
                 <Bot className="h-12 w-12 text-muted-foreground/50" />
                 <p className="mt-4 text-sm text-muted-foreground">
-                Upload an image and the AI analysis will appear here.
+                {t.uploadAndAnalyzeDisclaimer}
                 </p>
             </div>
         )}
