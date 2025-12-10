@@ -4,7 +4,7 @@
 import { dummyProducts } from "@/lib/dummy-products";
 import { ProductCard } from "@/components/product-card";
 import { Input } from "@/components/ui/input";
-import { Search, ShoppingBasket, Inbox, MessageSquare, IndianRupee } from "lucide-react";
+import { Search, ShoppingBasket, MessageSquare, IndianRupee, PiggyBank } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -22,11 +22,12 @@ export function BuyerDashboard() {
   const productsBought = 5;
   const negotiationsStarted = 12;
   const totalSpent = 15000;
+  const totalSavings = 2500;
 
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Products Bought</CardTitle>
@@ -55,6 +56,16 @@ export function BuyerDashboard() {
             <CardContent>
               <div className="text-2xl font-bold">{totalSpent.toLocaleString()}</div>
                <p className="text-xs text-muted-foreground">on all purchases</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Savings</CardTitle>
+              <PiggyBank className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-green-600">₹{totalSavings.toLocaleString()}</div>
+               <p className="text-xs text-muted-foreground">saved through negotiation</p>
             </CardContent>
           </Card>
       </div>
