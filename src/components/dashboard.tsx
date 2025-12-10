@@ -34,9 +34,8 @@ import { Button } from "@/components/ui/button";
 import { FarmerListings } from "@/components/farmer-listings";
 import { NegotiationInbox } from "@/components/negotiation-inbox";
 
-export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) {
-  const [language, setLanguage] = useState<Language>("en");
-  const t = translations[language];
+export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => void, lang: Language }) {
+  const t = translations[lang];
 
   return (
     <div className="flex flex-col gap-4">
@@ -132,7 +131,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <FarmerListings lang={language} />
+                  <FarmerListings lang={lang} />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -145,7 +144,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
                     </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <NegotiationInbox lang={language} />
+                        <NegotiationInbox lang={lang} />
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -158,7 +157,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <PriceOracle lang={language} />
+                  <PriceOracle lang={lang} />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -171,7 +170,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <QualityInspector lang={language} />
+                  <QualityInspector lang={lang} />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -184,7 +183,7 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <LocationInsights lang={language} />
+                  <LocationInsights lang={lang} />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -197,14 +196,14 @@ export function Dashboard({ role, onBack }: { role: Role, onBack: () => void }) 
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <TermsSummarizer lang={language} />
+                  <TermsSummarizer lang={lang} />
                 </CardContent>
               </Card>
             </TabsContent>
           </div>
         </Tabs>
       ) : (
-        <BuyerDashboard />
+        <BuyerDashboard lang={lang} />
       )}
     </div>
   );

@@ -5,18 +5,26 @@ import { useState } from "react";
 import { Dashboard } from "@/components/dashboard";
 import { RoleSelection } from "@/components/role-selection";
 import { Icons } from "@/components/icons";
-import { Login } from "@/components/login";
+import { Login, Language } from "@/components/login";
 
 export type Role = "farmer" | "buyer";
 
 export default function Home() {
   const [role, setRole] = useState<Role | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [language, setLanguage] = useState<Language>("en");
 
   const handleBackToRoleSelection = () => {
     setRole(null);
     setIsLoggedIn(false);
   }
+
+  const handleLogin = (lang?: Language) => {
+    if (lang) {
+      setLanguage(lang);
+    }
+    setIsLoggedIn(true);
+  };
 
   if (!role) {
     return (
@@ -38,13 +46,13 @@ export default function Home() {
   }
 
   if (!isLoggedIn) {
-    return <Login role={role} onLogin={() => setIsLoggedIn(true)} onBack={handleBackToRoleSelection} />;
+    return <Login role={role} onLogin={handleLogin} onBack={handleBackToRoleSelection} />;
   }
 
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-        <Dashboard role={role} onBack={handleBackToRoleSelection} />
+        <Dashboard role={role} onBack={handleBackToRoleSelection} lang={language} />
       </main>
     </div>
   );

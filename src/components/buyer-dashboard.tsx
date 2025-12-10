@@ -10,8 +10,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NegotiationInbox } from "@/components/negotiation-inbox";
 import { Badge } from "@/components/ui/badge";
+import { Language } from "./login";
 
-export function BuyerDashboard() {
+export function BuyerDashboard({ lang }: { lang: Language }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredProducts = dummyProducts.filter((product) =>
@@ -73,8 +74,8 @@ export function BuyerDashboard() {
        <Tabs defaultValue="marketplace">
         <TabsList>
           <TabsTrigger value="marketplace">Marketplace</TabsTrigger>
-          <TabsTrigger value="inbox" className="w-full justify-between">
-            Negotiation Inbox
+          <TabsTrigger value="inbox" className="w-full">
+            <span className="flex-grow text-center">Negotiation Inbox</span>
             <Badge className="ml-2">3</Badge>
           </TabsTrigger>
         </TabsList>
@@ -108,7 +109,7 @@ export function BuyerDashboard() {
                     <CardTitle>Negotiation Inbox</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <NegotiationInbox lang="en" />
+                    <NegotiationInbox lang={lang} />
                 </CardContent>
             </Card>
         </TabsContent>
