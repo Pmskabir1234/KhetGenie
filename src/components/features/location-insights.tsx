@@ -34,11 +34,6 @@ export function LocationInsights({ lang }: { lang: Language }) {
   const { toast } = useToast();
   const t = translations[lang];
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: { city: "" },
-  });
-
   const getOverallAqiStatus = (pm2_5: number | null): { status: string; advice: string; color: string } => {
     if (pm2_5 === null) return { status: 'Unknown', advice: 'Data unavailable.', color: 'gray' };
     if (pm2_5 <= 12) return { status: 'Good', advice: 'Air quality is satisfactory.', color: 'text-green-600' };
