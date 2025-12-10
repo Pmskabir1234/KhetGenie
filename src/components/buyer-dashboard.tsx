@@ -73,7 +73,7 @@ export function BuyerDashboard() {
        <Tabs defaultValue="marketplace">
         <TabsList>
           <TabsTrigger value="marketplace">Marketplace</TabsTrigger>
-          <TabsTrigger value="inbox">
+          <TabsTrigger value="inbox" className="w-full justify-between">
             Negotiation Inbox
             <Badge className="ml-2">3</Badge>
           </TabsTrigger>
