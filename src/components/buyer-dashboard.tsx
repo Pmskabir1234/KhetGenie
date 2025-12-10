@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NegotiationInbox } from "@/components/negotiation-inbox";
+import { Badge } from "@/components/ui/badge";
 
 export function BuyerDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
