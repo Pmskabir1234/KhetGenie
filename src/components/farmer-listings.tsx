@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { dummyProducts, type Product } from "@/lib/dummy-products";
-import { PlusCircle, Edit, Trash2 } from "lucide-react";
+import { PlusCircle, Edit, Trash2, IndianRupee } from "lucide-react";
 import type { Language } from "@/components/login";
 import { translations } from "@/lib/translations";
 import { AddListingDialog } from "@/components/add-listing-dialog";
@@ -56,7 +56,10 @@ export function FarmerListings({ lang }: { lang: Language }) {
                             {listings.map((product) => (
                                 <TableRow key={product.id}>
                                     <TableCell className="font-medium">{product.name}</TableCell>
-                                    <TableCell>₹{product.pricePerKg.toFixed(2)}</TableCell>
+                                    <TableCell className="flex items-center">
+                                        <IndianRupee className="h-4 w-4 mr-1" />
+                                        {product.pricePerKg.toFixed(2)}
+                                    </TableCell>
                                     <TableCell>{product.quantityKg}</TableCell>
                                     <TableCell>
                                         <Badge>Active</Badge>
