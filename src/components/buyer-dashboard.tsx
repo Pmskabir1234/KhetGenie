@@ -65,7 +65,10 @@ export function BuyerDashboard({ lang }: { lang: Language }) {
               <PiggyBank className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">₹{totalSavings.toLocaleString()}</div>
+              <div className="text-2xl font-bold text-green-600 flex items-center">
+                <IndianRupee className="h-6 w-6 mr-1" />
+                {totalSavings.toLocaleString()}
+              </div>
                <p className="text-xs text-muted-foreground">saved through negotiation</p>
             </CardContent>
           </Card>
