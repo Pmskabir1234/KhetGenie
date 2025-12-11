@@ -9,6 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Icons } from "@/components/icons";
 import { PriceOracle } from "@/components/features/price-oracle";
@@ -24,6 +30,8 @@ import {
   ArrowLeft,
   List,
   Inbox,
+  Settings,
+  LogOut,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Role } from "@/app/page";
@@ -56,16 +64,29 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-            <BadgeInfo className="h-5 w-5 text-muted-foreground" />
-            <Badge variant="outline" className="text-lg capitalize py-1 px-3">
+        <div className="flex items-center gap-4">
+            <Badge variant="outline" className="text-lg capitalize py-1 px-3 hidden sm:flex items-center gap-2">
+              <BadgeInfo className="h-5 w-5 text-muted-foreground" />
               {role}
             </Badge>
+             <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Settings className="h-6 w-6" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={onBack}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log Out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
         </div>
       </div>
       {role === "farmer" ? (
         <Tabs defaultValue="price-oracle" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 gap-4 h-auto bg-transparent p-0">
+          <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 gap-2 h-auto bg-transparent p-0">
             <TabsTrigger value="my-listings" className="p-0 h-full w-full">
               <Card className="hover:bg-primary/10 hover:border-primary data-[state=active]:bg-primary/10 data-[state=active]:border-primary transition-all w-full">
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
@@ -98,7 +119,7 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
                   <Camera className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.qualityInspector}</h3>
-                  <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.qualityInspectorShortDesc}</p>
+                   <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.qualityInspectorShortDesc}</p>
                 </CardContent>
               </Card>
             </TabsTrigger>
@@ -107,7 +128,7 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">
                   <MapPin className="h-10 w-10 mb-2 text-primary" />
                   <h3 className="font-semibold">{t.locationInsights}</h3>
-                  <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.locationInsightsShortDesc}</p>
+                   <p className="text-xs text-muted-foreground mt-1 whitespace-normal break-words">{t.locationInsightsShortDesc}</p>
                 </CardContent>
               </Card>
             </TabsTrigger>

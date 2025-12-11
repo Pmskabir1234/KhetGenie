@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Dashboard } from "@/components/dashboard";
 import { RoleSelection } from "@/components/role-selection";
 import { Icons } from "@/components/icons";
@@ -14,10 +14,10 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [language, setLanguage] = useState<Language>("en");
 
-  const handleBackToRoleSelection = () => {
+  const handleBackToRoleSelection = useCallback(() => {
     setRole(null);
     setIsLoggedIn(false);
-  }
+  }, []);
 
   const handleLogin = (lang?: Language) => {
     if (lang) {
