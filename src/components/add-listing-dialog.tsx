@@ -159,7 +159,7 @@ export function AddListingDialog({ isOpen, onClose, onAddListing, lang }: AddLis
                 <FormItem>
                    <FormLabel>Crop Image</FormLabel>
                    <FormControl>
-                       <>
+                       <div>
                          <Input 
                             type="file" 
                             accept="image/*" 
@@ -185,7 +185,7 @@ export function AddListingDialog({ isOpen, onClose, onAddListing, lang }: AddLis
                                 <p className="mt-2 text-sm text-muted-foreground">Upload Image</p>
                             </div>
                          )}
-                       </>
+                       </div>
                    </FormControl>
                   <FormMessage />
                 </FormItem>
