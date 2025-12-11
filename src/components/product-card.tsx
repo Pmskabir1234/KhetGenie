@@ -36,7 +36,7 @@ export function ProductCard({ product }: { product: Product }) {
            <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="text-center text-white p-4">
               <TrendingDown className="h-8 w-8 mx-auto mb-2" />
-              <p className="font-bold text-lg">Save ~₹{savings.toFixed(2)}/kg</p>
+              <p className="font-bold text-lg flex items-center justify-center">Save ~<IndianRupee className="h-5 w-5 mx-1" />{savings.toFixed(2)}/kg</p>
               <p className="text-xs">vs. market average</p>
             </div>
           </div>
