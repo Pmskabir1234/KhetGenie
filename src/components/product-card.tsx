@@ -1,10 +1,11 @@
+
 "use client";
 
 import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/lib/dummy-products";
-import { Handshake, MapPin, Scale, User, IndianRupee } from "lucide-react";
+import { Handshake, MapPin, Scale, User, IndianRupee, TrendingDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -17,8 +18,11 @@ export function ProductCard({ product }: { product: Product }) {
     });
   };
 
+  const marketPrice = product.pricePerKg * 1.15; // 15% higher market price
+  const savings = marketPrice - product.pricePerKg;
+
   return (
-    <Card className="overflow-hidden flex flex-col">
+    <Card className="overflow-hidden flex flex-col group transition-transform duration-200 ease-in-out hover:-translate-y-2">
       <CardHeader className="p-0">
         <div className="relative aspect-video w-full">
           <Image
@@ -29,6 +33,13 @@ export function ProductCard({ product }: { product: Product }) {
             style={{ objectFit: 'cover' }}
             data-ai-hint={product.imageHint}
           />
+           <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="text-center text-white p-4">
+              <TrendingDown className="h-8 w-8 mx-auto mb-2" />
+              <p className="font-bold text-lg">Save ~₹{savings.toFixed(2)}/kg</p>
+              <p className="text-xs">vs. market average</p>
+            </div>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="p-4 flex-grow">
