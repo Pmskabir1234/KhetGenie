@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Icons } from "@/components/icons";
 import { LanguageSelection } from "@/components/language-selection";
 import { translations } from "@/lib/translations";
@@ -35,6 +34,11 @@ const formSchema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
 });
 
+const signUpSchema = z.object({
+    email: z.string().email({ message: "Please enter a valid email." }),
+    password: z.string().min(6, { message: "Password must be at least 6 characters." }),
+});
+
 
 export function Login({ role, onLogin, onBack }: LoginProps) {
   const [language, setLanguage] = useState<Language>("en");
@@ -44,12 +48,21 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
   const firestore = useFirestore();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [isSignUpLoading, setIsSignUpLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const signInForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: role === 'farmer' ? 'farmer@khetgenie.com' : 'buyer@khetgenie.com',
       password: "password",
+    },
+  });
+
+  const signUpForm = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      email: "",
+      password: "",
     },
   });
 
@@ -61,19 +74,18 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
       onLogin(language);
     } catch (error: any) {
       console.error(error);
-      toast({ variant: "destructive", title: "Sign in failed", description: error.message });
+      toast({ variant: "destructive", title: "Sign in failed", description: "Invalid credentials. Please check your email and password or sign up." });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleSignUp = async (values: z.infer<typeof formSchema>) => {
-    setIsLoading(true);
+  const handleSignUp = async (values: z.infer<typeof signUpSchema>) => {
+    setIsSignUpLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
       const user = userCredential.user;
       
-      // Add user to Firestore
       await setDoc(doc(firestore, "users", user.uid), {
         uid: user.uid,
         email: user.email,
@@ -88,7 +100,7 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
       console.error(error);
       toast({ variant: "destructive", title: "Sign up failed", description: error.message });
     } finally {
-      setIsLoading(false);
+      setIsSignUpLoading(false);
     }
   };
 
@@ -124,10 +136,10 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
           <TabsContent value="signin">
             <Card>
               <CardContent className="p-6">
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(handleSignIn)} className="space-y-4">
+                <Form {...signInForm}>
+                  <form onSubmit={signInForm.handleSubmit(handleSignIn)} className="space-y-4">
                     <FormField
-                      control={form.control}
+                      control={signInForm.control}
                       name="email"
                       render={({ field }) => (
                         <FormItem>
@@ -140,7 +152,7 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
                       )}
                     />
                     <FormField
-                      control={form.control}
+                      control={signInForm.control}
                       name="password"
                       render={({ field }) => (
                         <FormItem>
@@ -163,10 +175,10 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
           <TabsContent value="signup">
             <Card>
               <CardContent className="p-6">
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(handleSignUp)} className="space-y-4">
+                <Form {...signUpForm}>
+                  <form onSubmit={signUpForm.handleSubmit(handleSignUp)} className="space-y-4">
                      <FormField
-                      control={form.control}
+                      control={signUpForm.control}
                       name="email"
                       render={({ field }) => (
                         <FormItem>
@@ -179,7 +191,7 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
                       )}
                     />
                     <FormField
-                      control={form.control}
+                      control={signUpForm.control}
                       name="password"
                       render={({ field }) => (
                         <FormItem>
@@ -191,9 +203,9 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full" disabled={isLoading}>
+                    <Button type="submit" className="w-full" disabled={isSignUpLoading}>
                       <UserPlus className="mr-2 h-4 w-4" />
-                       {isLoading ? 'Signing Up...' : 'Sign Up'}
+                       {isSignUpLoading ? 'Signing Up...' : 'Sign Up'}
                     </Button>
                   </form>
                 </Form>
@@ -205,3 +217,5 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
     </div>
   );
 }
+
+    
