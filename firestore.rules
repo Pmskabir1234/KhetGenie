@@ -1,0 +1,30 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Anyone can read listings, but only authenticated users can create them.
+    // Only the farmer who created the listing can update or delete it.
+    match /listings/{listingId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null && request.auth.uid == resource.data.farmerId;
+    }
+
+    // Users can read and write their own profile data.
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Users can only read and write messages in chats they are a part of.
+    // This requires a "participants" field in the /chats/{chatId} document.
+    match /chats/{chatId} {
+        allow read, write: if request.auth != null && request.auth.uid in resource.data.participants;
+        match /messages/{messageId} {
+            allow read, create: if request.auth != null && request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants;
+            // Users cannot update or delete messages.
+            allow update, delete: if false;
+        }
+    }
+  }
+}
