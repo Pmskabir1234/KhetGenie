@@ -1,7 +1,6 @@
 
 "use client";
 
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -41,9 +40,17 @@ import { translations } from "@/lib/translations";
 import { Button } from "@/components/ui/button";
 import { FarmerListings } from "@/components/farmer-listings";
 import { NegotiationInbox } from "@/components/negotiation-inbox";
+import { useAuth } from "@/firebase";
+import { signOut } from "firebase/auth";
 
 export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => void, lang: Language }) {
   const t = translations[lang];
+  const auth = useAuth();
+
+  const handleLogout = () => {
+    signOut(auth);
+    onBack();
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -76,7 +83,7 @@ export function Dashboard({ role, onBack, lang }: { role: Role, onBack: () => vo
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={onBack}>
+                <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log Out</span>
                 </DropdownMenuItem>
