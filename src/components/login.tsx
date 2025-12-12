@@ -53,8 +53,8 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
   const signInForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: role === 'farmer' ? 'farmer@khetgenie.com' : 'buyer@khetgenie.com',
-      password: "password",
+      email: "",
+      password: "",
     },
   });
 
@@ -73,7 +73,6 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
       toast({ title: "Signed in successfully!" });
       onLogin(language);
     } catch (error: any) {
-      console.error(error);
       toast({ variant: "destructive", title: "Sign in failed", description: "Invalid credentials. Please check your email and password or sign up." });
     } finally {
       setIsLoading(false);
@@ -97,7 +96,6 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
       toast({ title: "Account created successfully!" });
       onLogin(language);
     } catch (error: any) {
-      console.error(error);
       toast({ variant: "destructive", title: "Sign up failed", description: error.message });
     } finally {
       setIsSignUpLoading(false);
@@ -217,5 +215,3 @@ export function Login({ role, onLogin, onBack }: LoginProps) {
     </div>
   );
 }
-
-    
