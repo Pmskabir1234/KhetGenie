@@ -5,7 +5,7 @@
 export const firebaseConfig = {
   "projectId": "studio-2586101103-d236f",
   "appId": "1:994281137308:web:e9e2f420f6c77730faf959",
-  "apiKey": "AIzaSyCNY3a4sU1zUk-2LDpCZ0maWvDpsYfcmzs",
+  "apiKey": "gemini-api-key",
   "authDomain": "studio-2586101103-d236f.firebaseapp.com",
   "measurementId": "",
   "storageBucket": "studio-2586101103-d236f.appspot.com",
