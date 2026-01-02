@@ -9,6 +9,8 @@ import type {
 } from 'firebase/firestore';
 import {onSnapshot} from 'firebase/firestore';
 import {useAuth} from '@/firebase/provider';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 /**
  * The options for the `useDoc` hook.
@@ -31,7 +33,7 @@ export type UseDocOptions<T> = {
  * This function will be used if no parser is provided in the options.
  */
 function defaultParser<T>(data: DocumentData) {
-  return data as T;
+  return { id: data.id, ...data } as T;
 }
 
 /**
@@ -63,6 +65,7 @@ export function useDoc<T>(
     // We don't want to run the effect if the user is not logged in or if the
     // document reference is not available.
     if (!user || !ref) {
+      setLoading(false);
       return;
     }
 
@@ -79,10 +82,20 @@ export function useDoc<T>(
         }
 
         const parser = optionsRef.current?.parser ?? defaultParser;
-        const data = parser(snapshot.data());
+        const data = parser({ ...snapshot.data(), id: snapshot.id });
 
         setData(data as T);
         setLoading(false);
+      },
+      (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: ref.path,
+          operation: 'get',
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        console.error(error);
+        setLoading(false);
+        setData(null);
       }
     );
 

@@ -10,6 +10,8 @@ import type {
 } from 'firebase/firestore';
 import {onSnapshot} from 'firebase/firestore';
 import {useAuth} from '@/firebase';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 /**
  * The options for the `useCollection` hook.
@@ -27,7 +29,7 @@ export type UseCollectionOptions<T> = {
 };
 
 function defaultParser<T>(data: DocumentData) {
-  return data as T;
+  return { id: data.id, ...data } as T;
 }
 
 /**
@@ -59,6 +61,7 @@ export function useCollection<T>(
     // We don't want to run the effect if the user is not logged in or if the
     // collection reference is not available.
     if (!user || !ref) {
+      setLoading(false);
       return;
     }
 
@@ -68,10 +71,20 @@ export function useCollection<T>(
       ref,
       (snapshot: QuerySnapshot<DocumentData>) => {
         const parser = optionsRef.current?.parser ?? defaultParser;
-        const data = snapshot.docs.map((doc) => parser(doc.data())) as T[];
+        const data = snapshot.docs.map((doc) => parser({ ...doc.data(), id: doc.id })) as T[];
 
         setData(data);
         setLoading(false);
+      },
+      (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: (ref as Query).path,
+          operation: 'list',
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        console.error(error);
+        setLoading(false);
+        setData(null);
       }
     );
 

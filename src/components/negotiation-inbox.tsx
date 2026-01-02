@@ -27,7 +27,6 @@ interface Chat {
 
 export function NegotiationInbox({ lang }: { lang: Language }) {
   const t = translations[lang];
-  const auth = useAuth();
   const firestore = useFirestore();
   const { user, loading: userLoading } = useAuth();
 
