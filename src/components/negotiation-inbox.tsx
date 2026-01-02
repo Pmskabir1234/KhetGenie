@@ -1,17 +1,16 @@
+'use client';
 
-"use client";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import type { Language } from "@/components/login";
-import { translations } from "@/lib/translations";
-import { Bot, User } from "lucide-react";
-import { useAuth, useCollection, useFirestore } from "@/firebase";
-import { collection, query, where, orderBy, type Timestamp } from "firebase/firestore";
-import { useMemo } from "react";
-import { formatDistanceToNow } from "date-fns";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+import type { Language } from '@/components/login';
+import { translations } from '@/lib/translations';
+import { Bot, User } from 'lucide-react';
+import { useAuth, useCollection, useFirestore } from '@/firebase';
+import { collection, query, where, type Timestamp } from 'firebase/firestore';
+import { useMemo } from 'react';
+import { formatDistanceToNow } from 'date-fns';
 
 interface Chat {
   id: string;
@@ -23,6 +22,7 @@ interface Chat {
     timestamp: Timestamp;
   };
   unreadBy: string[];
+  updatedAt: Timestamp;
 }
 
 export function NegotiationInbox({ lang }: { lang: Language }) {
@@ -32,14 +32,23 @@ export function NegotiationInbox({ lang }: { lang: Language }) {
 
   const chatsQuery = useMemo(() => {
     if (!user) return null;
-    return query(
-      collection(firestore, 'chats'),
-      where('participants', 'array-contains', user.uid),
-      orderBy('lastMessage.timestamp', 'desc')
-    );
+    // Note: Removed orderBy('updatedAt', 'desc') to avoid needing a composite index.
+    // We can handle sorting on the client-side if needed.
+    return query(collection(firestore, 'chats'), where('participants', 'array-contains', user.uid));
   }, [firestore, user]);
 
   const { data: chats, loading: chatsLoading } = useCollection<Chat>(chatsQuery);
+  
+  // Sort chats on the client side
+  const sortedChats = useMemo(() => {
+    if (!chats) return [];
+    return [...chats].sort((a, b) => {
+      const aTime = a.updatedAt?.toDate()?.getTime() || 0;
+      const bTime = b.updatedAt?.toDate()?.getTime() || 0;
+      return bTime - aTime;
+    });
+  }, [chats]);
+
 
   if (userLoading || chatsLoading) {
     return (
@@ -51,29 +60,29 @@ export function NegotiationInbox({ lang }: { lang: Language }) {
     );
   }
 
-  if (!chats || chats.length === 0) {
+  if (!sortedChats || sortedChats.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center text-center p-8 rounded-lg border-2 border-dashed h-48">
         <Bot className="h-12 w-12 text-muted-foreground/50" />
-        <p className="mt-4 text-sm text-muted-foreground">
-          {t.noMessages}
-        </p>
+        <p className="mt-4 text-sm text-muted-foreground">{t.noMessages}</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-4">
-      {chats.map((chat) => {
+      {sortedChats.map((chat) => {
         const isUnread = chat.unreadBy.includes(user!.uid);
-        const otherParticipantId = chat.participants.find(p => p !== user!.uid);
+        const otherParticipantId = chat.participants.find((p) => p !== user!.uid);
 
         return (
-          <Card key={chat.id} className={`cursor-pointer hover:bg-secondary/50 ${isUnread ? "border-primary" : ""}`}>
+          <Card key={chat.id} className={`cursor-pointer hover:bg-secondary/50 ${isUnread ? 'border-primary' : ''}`}>
             <CardContent className="p-4 flex items-start gap-4">
               <Avatar className="h-12 w-12 border">
                 {/* In a real app, you would fetch the other user's profile to get their avatar */}
-                <AvatarFallback><User /></AvatarFallback>
+                <AvatarFallback>
+                  <User />
+                </AvatarFallback>
               </Avatar>
               <div className="flex-grow overflow-hidden">
                 <div className="flex justify-between items-center">

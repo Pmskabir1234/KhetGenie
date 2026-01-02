@@ -1,14 +1,13 @@
+'use client';
 
-"use client";
-
-import Image from "next/image";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import type { Product } from "@/lib/dummy-products";
-import { Handshake, MapPin, Scale, User, IndianRupee, TrendingDown } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth, useFirestore } from "@/firebase";
-import { collection, addDoc, serverTimestamp, query, where, getDocs } from "firebase/firestore";
+import Image from 'next/image';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import type { Product } from '@/lib/dummy-products';
+import { Handshake, MapPin, Scale, User, IndianRupee, TrendingDown } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth, useFirestore } from '@/firebase';
+import { collection, addDoc, serverTimestamp, query, where, getDocs, writeBatch } from 'firebase/firestore';
 
 export function ProductCard({ product }: { product: Product }) {
   const { toast } = useToast();
@@ -18,24 +17,25 @@ export function ProductCard({ product }: { product: Product }) {
   const handleNegotiate = async () => {
     if (!user) {
       toast({
-        variant: "destructive",
-        title: "Authentication required",
-        description: "You need to be logged in to start a negotiation.",
+        variant: 'destructive',
+        title: 'Authentication required',
+        description: 'You need to be logged in to start a negotiation.',
       });
       return;
     }
 
     if (user.uid === product.farmerId) {
       toast({
-        variant: "destructive",
-        title: "Action not allowed",
-        description: "You cannot start a negotiation for your own listing.",
+        variant: 'destructive',
+        title: 'Action not allowed',
+        description: 'You cannot start a negotiation for your own listing.',
       });
       return;
     }
-    
+
     try {
-      const chatsRef = collection(firestore, "chats");
+      const chatsRef = collection(firestore, 'chats');
+      // Check if a chat already exists between the two users for this specific listing
       const q = query(
         chatsRef,
         where('listingId', '==', product.id.toString()),
@@ -43,15 +43,24 @@ export function ProductCard({ product }: { product: Product }) {
       );
 
       const querySnapshot = await getDocs(q);
+      
+      let chatExists = false;
+      querySnapshot.forEach(doc => {
+        const chat = doc.data();
+        if (chat.participants.includes(product.farmerId)) {
+          chatExists = true;
+        }
+      });
 
-      if (!querySnapshot.empty) {
+      if (chatExists) {
         toast({
-          title: "Chat already exists",
+          title: 'Chat already exists',
           description: `A chat for ${product.name} already exists. Please check your inbox.`,
         });
         return;
       }
-      
+
+      // If no chat exists, create a new one
       const welcomeMessage = `Hello! I'm ${product.farmerName}, thanks for your interest in my ${product.name}. Let me know if you have any questions.`;
 
       await addDoc(chatsRef, {
@@ -68,16 +77,15 @@ export function ProductCard({ product }: { product: Product }) {
       });
 
       toast({
-        title: "Negotiation Started",
+        title: 'Negotiation Started',
         description: `A new chat for ${product.name} has been added to your inbox.`,
       });
-
-    } catch (error) {
-      console.error("Error starting negotiation:", error);
+    } catch (error: any) {
+      console.error('Error starting negotiation:', error);
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "Could not start the negotiation. Please try again.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: error.message || 'Could not start the negotiation. Please try again.',
       });
     }
   };
@@ -97,10 +105,13 @@ export function ProductCard({ product }: { product: Product }) {
             style={{ objectFit: 'cover' }}
             data-ai-hint={product.imageHint}
           />
-           <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="text-center text-white p-4">
               <TrendingDown className="h-8 w-8 mx-auto mb-2" />
-              <p className="font-bold text-lg flex items-center justify-center">Save ~<IndianRupee className="h-5 w-5 mx-1" />{savings.toFixed(2)}/kg</p>
+              <p className="font-bold text-lg flex items-center justify-center">
+                Save ~<IndianRupee className="h-5 w-5 mx-1" />
+                {savings.toFixed(2)}/kg
+              </p>
               <p className="text-xs">vs. market average</p>
             </div>
           </div>
@@ -125,8 +136,11 @@ export function ProductCard({ product }: { product: Product }) {
       </CardContent>
       <CardFooter className="flex-col items-stretch gap-2 p-4 pt-0">
         <div className="flex items-baseline justify-center text-center p-3 rounded-lg bg-secondary/50 mb-2">
-            <span className="text-2xl font-bold text-foreground flex items-center"><IndianRupee className="h-5 w-5 mr-1" />{product.pricePerKg.toFixed(2)}</span>
-            <span className="text-sm text-muted-foreground">/kg</span>
+          <span className="text-2xl font-bold text-foreground flex items-center">
+            <IndianRupee className="h-5 w-5 mr-1" />
+            {product.pricePerKg.toFixed(2)}
+          </span>
+          <span className="text-sm text-muted-foreground">/kg</span>
         </div>
         <Button onClick={handleNegotiate} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
           <Handshake className="mr-2 h-4 w-4" />

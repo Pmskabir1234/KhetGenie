@@ -1,4 +1,3 @@
-
 'use client';
 
 import {useEffect, useState, useRef} from 'react';
@@ -62,6 +61,7 @@ export function useCollection<T>(
     // collection reference is not available.
     if (!user || !ref) {
       setLoading(false);
+      setData(null);
       return;
     }
 
@@ -77,12 +77,24 @@ export function useCollection<T>(
         setLoading(false);
       },
       (error) => {
-        const permissionError = new FirestorePermissionError({
-          path: (ref as Query).path,
-          operation: 'list',
-        });
+        console.error("Firestore Error in useCollection:", error);
+        
+        let permissionError: FirestorePermissionError;
+
+        if (error.message.includes("indexes")) {
+           permissionError = new FirestorePermissionError({
+            path: (ref as Query).path,
+            operation: 'list',
+            requestResourceData: `This query failed. It's likely you are missing a composite index. Check the logs for a link to create one.`,
+          });
+        } else {
+           permissionError = new FirestorePermissionError({
+            path: (ref as Query).path,
+            operation: 'list',
+          });
+        }
+        
         errorEmitter.emit('permission-error', permissionError);
-        console.error(error);
         setLoading(false);
         setData(null);
       }
