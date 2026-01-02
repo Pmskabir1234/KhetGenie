@@ -1,8 +1,10 @@
+
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export type Product = {
   id: number;
   name: string;
+  farmerId: string;
   farmerName: string;
   location: string;
   pricePerKg: number;
@@ -29,6 +31,7 @@ export const dummyProducts: Product[] = [
   {
     id: 1,
     name: 'Organic Wheat',
+    farmerId: 'farmer_rakesh_kumar',
     farmerName: 'Rakesh Kumar',
     location: 'Punjab, India',
     pricePerKg: 30,
@@ -38,6 +41,7 @@ export const dummyProducts: Product[] = [
   {
     id: 2,
     name: 'Fresh Tomatoes',
+    farmerId: 'farmer_sunita_devi',
     farmerName: 'Sunita Devi',
     location: 'Maharashtra, India',
     pricePerKg: 45,
@@ -47,6 +51,7 @@ export const dummyProducts: Product[] = [
   {
     id: 3,
     name: 'Himalayan Potatoes',
+    farmerId: 'farmer_tenzing_norgay',
     farmerName: 'Tenzing Norgay',
     location: 'Himachal Pradesh, India',
     pricePerKg: 25,
@@ -56,6 +61,7 @@ export const dummyProducts: Product[] = [
   {
     id: 4,
     name: 'Nasik Onions',
+    farmerId: 'farmer_anil_patil',
     farmerName: 'Anil Patil',
     location: 'Maharashtra, India',
     pricePerKg: 35,
@@ -65,6 +71,7 @@ export const dummyProducts: Product[] = [
   {
     id: 5,
     name: 'Basmati Rice',
+    farmerId: 'farmer_gurpreet_singh',
     farmerName: 'Gurpreet Singh',
     location: 'Haryana, India',
     pricePerKg: 80,
@@ -74,6 +81,7 @@ export const dummyProducts: Product[] = [
   {
     id: 6,
     name: 'Alphonso Mangoes',
+    farmerId: 'farmer_devika_rao',
     farmerName: 'Devika Rao',
     location: 'Ratnagiri, India',
     pricePerKg: 250,
@@ -83,6 +91,7 @@ export const dummyProducts: Product[] = [
   {
     id: 7,
     name: 'Sugarcane',
+    farmerId: 'farmer_rajendra_prasad',
     farmerName: 'Rajendra Prasad',
     location: 'Uttar Pradesh, India',
     pricePerKg: 5,
@@ -92,6 +101,7 @@ export const dummyProducts: Product[] = [
   {
     id: 8,
     name: 'Indian Cotton',
+    farmerId: 'farmer_lakshmi_bai',
     farmerName: 'Lakshmi Bai',
     location: 'Gujarat, India',
     pricePerKg: 60,
@@ -101,6 +111,7 @@ export const dummyProducts: Product[] = [
   {
     id: 9,
     name: 'Green Cardamom',
+    farmerId: 'farmer_muthu_kumar',
     farmerName: 'Muthu Kumar',
     location: 'Kerala, India',
     pricePerKg: 1200,
@@ -110,6 +121,7 @@ export const dummyProducts: Product[] = [
   {
     id: 10,
     name: 'Darjeeling Tea',
+    farmerId: 'farmer_priya_thapa',
     farmerName: 'Priya Thapa',
     location: 'West Bengal, India',
     pricePerKg: 1500,
@@ -119,6 +131,7 @@ export const dummyProducts: Product[] = [
   {
     id: 11,
     name: 'Kerala Coconuts',
+    farmerId: 'farmer_joseph_km',
     farmerName: 'Joseph K.M.',
     location: 'Kerala, India',
     pricePerKg: 40,
@@ -128,6 +141,7 @@ export const dummyProducts: Product[] = [
   {
     id: 12,
     name: 'Golden Jute',
+    farmerId: 'farmer_aarav_biswas',
     farmerName: 'Aarav Biswas',
     location: 'West Bengal, India',
     pricePerKg: 55,

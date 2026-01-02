@@ -7,15 +7,79 @@ import { Button } from "@/components/ui/button";
 import type { Product } from "@/lib/dummy-products";
 import { Handshake, MapPin, Scale, User, IndianRupee, TrendingDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth, useFirestore } from "@/firebase";
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from "firebase/firestore";
 
 export function ProductCard({ product }: { product: Product }) {
   const { toast } = useToast();
+  const firestore = useFirestore();
+  const { user } = useAuth();
 
-  const handleNegotiate = () => {
-    toast({
-      title: "Negotiation Started",
-      description: `You have started a negotiation for ${product.name} with ${product.farmerName}.`,
-    });
+  const handleNegotiate = async () => {
+    if (!user) {
+      toast({
+        variant: "destructive",
+        title: "Authentication required",
+        description: "You need to be logged in to start a negotiation.",
+      });
+      return;
+    }
+
+    if (user.uid === product.farmerId) {
+      toast({
+        variant: "destructive",
+        title: "Action not allowed",
+        description: "You cannot start a negotiation for your own listing.",
+      });
+      return;
+    }
+    
+    try {
+      const chatsRef = collection(firestore, "chats");
+      const q = query(
+        chatsRef,
+        where('listingId', '==', product.id.toString()),
+        where('participants', 'array-contains', user.uid)
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        toast({
+          title: "Chat already exists",
+          description: `A chat for ${product.name} already exists. Please check your inbox.`,
+        });
+        return;
+      }
+      
+      const welcomeMessage = `Hello! I'm ${product.farmerName}, thanks for your interest in my ${product.name}. Let me know if you have any questions.`;
+
+      await addDoc(chatsRef, {
+        listingId: product.id.toString(),
+        listingName: product.name,
+        participants: [user.uid, product.farmerId],
+        lastMessage: {
+          text: welcomeMessage,
+          senderId: product.farmerId,
+          timestamp: serverTimestamp(),
+        },
+        unreadBy: [user.uid],
+        updatedAt: serverTimestamp(),
+      });
+
+      toast({
+        title: "Negotiation Started",
+        description: `A new chat for ${product.name} has been added to your inbox.`,
+      });
+
+    } catch (error) {
+      console.error("Error starting negotiation:", error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "Could not start the negotiation. Please try again.",
+      });
+    }
   };
 
   const marketPrice = product.pricePerKg * 1.15; // 15% higher market price
