@@ -69,6 +69,40 @@
             },
             "required": ["farmerId", "name", "pricePerKg", "quantityKg", "imageUrl", "createdAt"]
         },
+        "Chat": {
+            "title": "Chat",
+            "description": "Represents a negotiation chat between a buyer and a seller.",
+            "type": "object",
+            "properties": {
+                "id": { "type": "string", "description": "The unique ID of the chat." },
+                "listingId": { "type": "string", "description": "The ID of the listing this chat is about." },
+                "listingName": { "type": "string", "description": "The name of the listing." },
+                "participants": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "An array of user UIDs participating in the chat."
+                },
+                "lastMessage": {
+                    "type": "object",
+                    "properties": {
+                        "text": { "type": "string" },
+                        "senderId": { "type": "string" },
+                        "timestamp": { "type": "string", "format": "date-time" }
+                    }
+                },
+                "unreadBy": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "An array of user UIDs who have unread messages in this chat."
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp when the chat was last updated."
+                }
+            },
+            "required": ["listingId", "participants", "updatedAt"]
+        },
         "ChatMessage": {
             "title": "Chat Message",
             "description": "Represents a message in a negotiation chat.",
@@ -114,6 +148,12 @@
                 "$ref": "#/entities/Listing"
             },
             "description": "Stores all crop listings."
+        },
+        "/chats/{chatId}": {
+            "schema": {
+                "$ref": "#/entities/Chat"
+            },
+            "description": "Stores metadata for a single chat session."
         },
         "/chats/{chatId}/messages/{messageId}": {
             "schema": {
